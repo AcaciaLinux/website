@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdminComponent } from './admin/admin.component';
 import { RouterModule } from '@angular/router';
-import { LandingComponent } from './landing/landing.component';
 
 @NgModule({
   declarations: [
