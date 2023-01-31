@@ -11,6 +11,7 @@ import { DownloadsComponent } from './downloads/downloads.component';
 import { HomeComponent } from './home/home.component';
 import { ConfigService } from './shared/config/config.service';
 import { HttpClientModule } from '@angular/common/http';
+import { BuildJobsComponent } from './admin/build-jobs/build-jobs.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { HttpClientModule } from '@angular/common/http';
     PackagesComponent,
     PackagebuildsComponent,
     DownloadsComponent,
-    HomeComponent
+    HomeComponent,
+    BuildJobsComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +32,7 @@ import { HttpClientModule } from '@angular/common/http';
       { path: 'packagebuilds', component: PackagebuildsComponent },
       { path: 'downloads', component: DownloadsComponent },
       { path: 'admin', component: AdminComponent },
+      { path: 'admin/jobs', component: BuildJobsComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full'}
     ]),
     NgbModule
