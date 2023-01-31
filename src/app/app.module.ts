@@ -10,6 +10,7 @@ import { PackagebuildsComponent } from './packagebuilds/packagebuilds.component'
 import { DownloadsComponent } from './downloads/downloads.component';
 import { HomeComponent } from './home/home.component';
 import { ConfigService } from './shared/config/config.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ConfigService } from './shared/config/config.service';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     RouterModule.forRoot([
       { path: 'home', component: HomeComponent },
       { path: 'packages', component: PackagesComponent },
