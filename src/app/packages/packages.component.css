@@ -1,0 +1,19 @@
+
+.al_th{
+	font-family: monospace;
+}
+
+.al_td{
+	font-family: monospace;
+}
+
+.al_nowrap{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	max-width:1px;
+}
+
+.al_center{
+	text-align: center;
+}
