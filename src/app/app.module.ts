@@ -9,6 +9,7 @@ import { PackagesComponent } from './packages/packages.component';
 import { PackagebuildsComponent } from './packagebuilds/packagebuilds.component';
 import { DownloadsComponent } from './downloads/downloads.component';
 import { HomeComponent } from './home/home.component';
+import { ConfigService } from './shared/config/config.service';
 
 @NgModule({
   declarations: [
