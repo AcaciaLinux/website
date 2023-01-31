@@ -4,8 +4,8 @@
 			<th class="al_th" style="width: 15%;">Package Name</th>
 			<th class="al_th" style="width: 5%;">Version</th>
 			<th class="al_th al_center" style="width: 5%;">RelV</th>
-			<th class="al_th" style="width: 40%;">Description</th>
-			<th class="al_th" style="width: 25%;">Dependencies</th>
+			<th fxHide.lt-md class="al_th" style="width: 40%;">Description</th>
+			<th fxHide.lt-sm class="al_th" style="width: 25%;">Dependencies</th>
 		</tr>
 	</thead>
 	<tbody *ngIf="packages !== undefined" class="al_tbody">
@@ -13,8 +13,8 @@
 			<td class="al_td al_nowrap"><a [href]="package.url" >{{ package.name }}</a></td>
 			<td class="al_td al_nowrap">{{ package.version }}</td>
 			<td class="al_td al_center">{{ package.real_version }}</td>
-			<td class="al_td al_nowrap">{{ package.description }}</td>
-			<td class="al_td al_nowrap">{{ getPkgDepsString(package) }}</td>
+			<td fxHide.lt-md class="al_td al_nowrap">{{ package.description }}</td>
+			<td fxHide.lt-sm class="al_td al_nowrap">{{ getPkgDepsString(package) }}</td>
 		</tr>
 	</tbody>
 </table>

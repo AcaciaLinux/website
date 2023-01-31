@@ -1,10 +1,10 @@
 <table class="table table-hover table-bordered" style="position: sticky; top: 0;">
 	<thead class="al_thead">
 		<tr>
-			<th class="al_th al_center" style="width: 20%;">Package Name</th>
-			<th class="al_th al_center" style="width: 60%;">Job ID</th>
-			<th class="al_th al_center" style="width: 10%;">Requester</th>
-			<th class="al_th al_center" style="width: 10%;">Status</th>
+			<th class="al_th al_center">Package Name</th>
+			<th fxHide.lt-md class="al_th al_center" style="width: 60%;">Job ID</th>
+			<th class="al_th al_center">Requester</th>
+			<th class="al_th al_center">Status</th>
 		</tr>
 	</thead>
 	<tbody class="al_tbody">
@@ -13,7 +13,7 @@
 		</tr>
 		<tr *ngFor="let job of queued_jobs">
 			<td class="al_td al_nowrap al_center">{{ job.build_pkg_name }}</td>
-			<td class="al_td al_nowrap al_center">{{ job.job_id }}</td>
+			<td fxHide.lt-md class="al_td al_nowrap al_center">{{ job.job_id }}</td>
 			<td class="al_td al_nowrap al_center">{{ job.requesting_client }}</td>
 			<td class="al_td al_nowrap al_center">{{ job.job_status }}</td>
 		</tr>
@@ -22,7 +22,7 @@
 		</tr>
 		<tr *ngFor="let job of running_jobs">
 			<td class="al_td al_nowrap al_center">{{ job.build_pkg_name }}</td>
-			<td class="al_td al_nowrap al_center">{{ job.job_id }}</td>
+			<td fxHide.lt-md class="al_td al_nowrap al_center">{{ job.job_id }}</td>
 			<td class="al_td al_nowrap al_center">{{ job.requesting_client }}</td>
 			<td class="al_td al_nowrap al_center">{{ job.job_status }}</td>
 		</tr>
@@ -31,18 +31,9 @@
 		</tr>
 		<tr *ngFor="let job of completed_jobs">
 			<td class="al_td al_nowrap al_center">{{ job.build_pkg_name }}</td>
-			<td class="al_td al_nowrap al_center">{{ job.job_id }}</td>
+			<td fxHide.lt-md class="al_td al_nowrap al_center">{{ job.job_id }}</td>
 			<td class="al_td al_nowrap al_center">{{ job.requesting_client }}</td>
 			<td class="al_td al_nowrap al_center">{{ job.job_status }}</td>
 		</tr>
 	</tbody>
-	<!--<tbody *ngIf="packages !== undefined" class="al_tbody">
-		<tr *ngFor="let package of packages">
-			<td class="al_td al_nowrap"><a [href]="package.url" >{{ package.name }}</a></td>
-			<td class="al_td al_nowrap">{{ package.version }}</td>
-			<td class="al_td al_center">{{ package.real_version }}</td>
-			<td class="al_td al_nowrap">{{ package.description }}</td>
-			<td class="al_td al_nowrap">{{ getPkgDepsString(package) }}</td>
-		</tr>
-	</tbody>-->
 </table>

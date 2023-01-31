@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -26,6 +27,7 @@ import { BuildJobsComponent } from './admin/build-jobs/build-jobs.component';
   imports: [
     BrowserModule,
     HttpClientModule,
+    FlexLayoutModule,
     RouterModule.forRoot([
       { path: 'home', component: HomeComponent },
       { path: 'packages', component: PackagesComponent },
