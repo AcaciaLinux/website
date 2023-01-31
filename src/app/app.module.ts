@@ -5,17 +5,29 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdminComponent } from './admin/admin.component';
 import { RouterModule } from '@angular/router';
+import { PackagesComponent } from './packages/packages.component';
+import { PackagebuildsComponent } from './packagebuilds/packagebuilds.component';
+import { DownloadsComponent } from './downloads/downloads.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AdminComponent
+    AdminComponent,
+    PackagesComponent,
+    PackagebuildsComponent,
+    DownloadsComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([
-      {path: 'admin', component: AdminComponent},
-      {path: '', component: LandingComponent}
+      { path: 'home', component: HomeComponent },
+      { path: 'packages', component: PackagesComponent },
+      { path: 'packagebuilds', component: PackagebuildsComponent },
+      { path: 'downloads', component: DownloadsComponent },
+      { path: 'admin', component: AdminComponent },
+      { path: '', redirectTo: 'home', pathMatch: 'full'}
     ]),
     NgbModule
   ],
