@@ -55,6 +55,7 @@ export class PackagebuildsComponent {
       .subscribe(data => {
         console.log("Updating data");
         this.pkgbuilds = data.payload;
+        this.pkgbuilds?.sort((a, b) => a?.localeCompare(b)) //Sort the pkgbuilds by name
       })
     this.branch.request("packagelist")
       .subscribe(data => {
