@@ -1,1 +1,22 @@
-<p>packagebuilds works!</p>
+
+<table class="table table-hover table-bordered al_th" style="position: sticky; top: 0;">
+	<thead class="al_thead">
+		<tr>
+			<th class="al_th" style="width: 55%;">Name</th>
+			<th class="al_th">Version</th>
+			<th class="al_th al_center">RelV</th>
+		</tr>
+	</thead>
+	<tbody *ngIf="pkgbuilds !== undefined && packages !== undefined" class="al_tbody">
+		<tr *ngFor="let pkgbuild of pkgbuilds">
+			<td class="al_td al_nowrap">{{ pkgbuild }}</td>
+
+			<!-- If the package is built -->
+			<td *ngIf="pkgIsBuilt(pkgbuild)" class="al_td al_nowrap">{{ getVersionByPkgName(pkgbuild) }}</td>
+			<td *ngIf="pkgIsBuilt(pkgbuild)" class="al_td al_center al_nowrap">{{ getRelVersionByPkgName(pkgbuild) }}</td>
+
+			<!-- Else span over 2 columns and inform the user -->
+			<td *ngIf="!pkgIsBuilt(pkgbuild)" class="al_td al_nowrap al_center" colspan="2">{{ getVersionByPkgName(pkgbuild) }}</td>
+		</tr>
+	</tbody>
+</table>
