@@ -2,7 +2,12 @@
 <nav #navbar id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
 	<div class="container-fluid">
 		<a class="navbar-brand" href="">AcaciaLinux</a>
-		<div class="collapse navbar-collapse" id="navbar-alt-markup">
+
+		<button class="navbar-toggler" type="button" aria-controls="navbar-alt-markup" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNav()">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div #navbar_alt_markup class="collapse navbar-collapse" id="navbar-alt-markup">
 			<div class="navbar-nav">
 				<a class="nav-link fw-bold" routerLinkActive="active" routerLink="home">Home</a>
 				<a class="nav-link fw-bold" routerLinkActive="active" routerLink="/packages">Packages</a>
