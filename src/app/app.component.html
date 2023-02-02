@@ -21,6 +21,6 @@
 	</div>
 </nav>
 
-<div [style.padding-top.px]="navbar.offsetHeight" style="height: 100%;">
-	<router-outlet  style="flex: 1; height:100%"></router-outlet>
+<div [style.padding-top.px]="navbar.offsetHeight" [style.height.px]="contentHeight">
+	<router-outlet></router-outlet>
 </div>

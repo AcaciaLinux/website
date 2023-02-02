@@ -1,4 +1,4 @@
-import { Component, ElementRef, Renderer2 } from '@angular/core';
+import { Component, ElementRef, HostListener, Renderer2, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
@@ -7,6 +7,10 @@ import { NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  public contentHeight = 0;
+  public navHeight = 0;
+  @ViewChild('navbar', { static: false }) navbar: ElementRef | undefined;
 
   constructor(private router: Router) {}
 
@@ -18,8 +22,18 @@ export class AppComponent {
     });
   }
 
+  ngAfterViewInit() {
+    this.navHeight = this.navbar?.nativeElement.offsetHeight;
+    this.contentHeight = window.innerHeight;
+  }
+
   toggleNav() {
     document.getElementById("navbar-alt-markup")?.classList.toggle("collapse");
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    console.log(this.contentHeight)
+    this.contentHeight = window.innerHeight;
+  }
 }
