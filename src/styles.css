@@ -6,10 +6,10 @@
 
 .al_thead{
 	position: sticky;
-	top: 48px;
+	top: 49px;
 	background: white;
 	font-style: bold;
-	background-color: rgba(255, 255, 255, 0.75);
+	background-color: rgba(255, 255, 255, 0.85);
 }
 
 .al_td{
