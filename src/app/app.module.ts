@@ -13,6 +13,8 @@ import { HomeComponent } from './home/home.component';
 import { ConfigService } from './shared/config/config.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BuildJobsComponent } from './admin/build-jobs/build-jobs.component';
+import { CodeEditorModule } from '@ngstack/code-editor';
+import { EditorComponent } from './editor/editor.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { BuildJobsComponent } from './admin/build-jobs/build-jobs.component';
     PackagebuildsComponent,
     DownloadsComponent,
     HomeComponent,
-    BuildJobsComponent
+    BuildJobsComponent,
+    EditorComponent
   ],
   imports: [
     BrowserModule,
@@ -35,9 +38,11 @@ import { BuildJobsComponent } from './admin/build-jobs/build-jobs.component';
       { path: 'downloads', component: DownloadsComponent },
       { path: 'admin', component: AdminComponent },
       { path: 'admin/jobs', component: BuildJobsComponent },
+      { path: 'editor/:pkgbuild', component: EditorComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full'}
     ]),
-    NgbModule
+    NgbModule,
+    CodeEditorModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
