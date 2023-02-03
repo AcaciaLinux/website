@@ -1,0 +1,14 @@
+
+<div *ngIf="model.value != ''" style="height: 100%;">
+	<ngs-code-editor
+	[theme]="theme"
+	[codeModel]="model"
+	[options]="options"
+	(valueChanged)="onCodeChanged($event)"
+	style="height: 100%;"
+	>
+	</ngs-code-editor>
+</div>
+<div *ngIf="model.value == ''">
+	<h1>Fetching Packagebuild...</h1>
+</div>
