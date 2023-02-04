@@ -42,7 +42,10 @@ import { EditorComponent } from './editor/editor.component';
       { path: '', redirectTo: 'home', pathMatch: 'full'}
     ]),
     NgbModule,
-    CodeEditorModule.forRoot()
+    CodeEditorModule.forRoot({
+      baseUrl: 'assets/monaco',
+      typingsWorkerUrl: 'assets/workers/typings-worker.js'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
