@@ -8,7 +8,7 @@
 		</tr>
 	</thead>
 	<tbody *ngIf="pkgbuilds !== undefined && packages !== undefined" class="al_tbody">
-		<tr *ngFor="let pkgbuild of pkgbuilds">
+		<tr *ngFor="let pkgbuild of pkgbuilds" (click)="openPkgBuild(pkgbuild)">
 			<td class="al_td al_nowrap">{{ pkgbuild }}</td>
 
 			<!-- If the package is built -->

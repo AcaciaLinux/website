@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription, interval } from 'rxjs';
 import { BranchService } from '../shared/branch/branch.service';
 import { Package } from '../shared/classes/package';
@@ -13,7 +14,7 @@ export class PackagebuildsComponent {
   public packages?: Package[];
   subscription?: Subscription;
 
-  constructor(public branch: BranchService){
+  constructor(public branch: BranchService, private router: Router){
 
   }
 
@@ -62,5 +63,10 @@ export class PackagebuildsComponent {
         console.log("Updating data");
         this.packages = data.payload;
       })
+  }
+
+  openPkgBuild(name: string){
+    console.log("Switching to editor to edit packagebuild " + name)
+    this.router.navigate(["editor", name])
   }
 }
