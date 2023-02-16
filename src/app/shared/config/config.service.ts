@@ -1,6 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { takeWhile } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +9,9 @@ export class ConfigService {
     branchAPIURL: 'https://api.acacialinux.org/',
     isDarkMode: false
   }
+
+  //The currently held authkey from the branch masterserver
+  public authKey: string = "";
 
   constructor(@Inject(PLATFORM_ID) private platformId: object) {
     if (isPlatformBrowser(this.platformId)){
