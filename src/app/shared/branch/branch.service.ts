@@ -5,6 +5,7 @@ import { map, Observable } from 'rxjs';
 
 class BranchResponse{
   status: string = ""
+  response_code: number = 0;
   payload: any
 }
 
@@ -13,7 +14,7 @@ class BranchResponse{
 })
 export class BranchService {
 
-  constructor(private config: ConfigService, private http: HttpClient) {
+  constructor(public config: ConfigService, private http: HttpClient) {
 
   }
 
@@ -21,7 +22,7 @@ export class BranchService {
     return this.http.get(this.config.getBranchAPIURL() + "?get=" + get);
   }
 
-  authenticate(username: string, password: string){
+  authenticate(username: string, password: string): Observable<boolean>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -30,16 +31,20 @@ export class BranchService {
 
     let req = "user=" + username + "&pass=" + password;
 
-    this.http.post(this.config.getBranchAPIURL() + "auth", req, httpOptions)
+    return this.http.post(this.config.getBranchAPIURL() + "auth", req, httpOptions)
       .pipe(map<any, BranchResponse>(data => data))
-      .subscribe(bresponse => {
-      if (bresponse.status != "SUCCESS"){
-        console.log("Authentication failed: " + bresponse.payload);
-        this.config.authKey = "";
-      } else {
-        console.log("Authentication ok!");
-        this.config.authKey = bresponse.payload;
-      }
-    });
+      .pipe(map(arg => this.authPipe(this, arg)));
+  }
+
+  //A pipe function handling the response of an authentication call
+  authPipe(self: BranchService, resp: BranchResponse): boolean{
+    let is_ok = resp.response_code == 200;
+    if (is_ok){
+      self.config.authKey = resp.payload;
+      console.debug("Authentication ok, authkey: '" + self.config.authKey + "'");
+    } else {
+      console.error("Failed to authenticate with code " + resp.response_code + ": " + resp.payload);
+    }
+    return is_ok;
   }
 }
