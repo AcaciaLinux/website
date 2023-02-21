@@ -16,9 +16,14 @@
 				<a class="nav-link fw-bold" routerLinkActive="active" routerLink="/admin">Admin</a>
 				<a class="nav-link" routerLinkActive="active" routerLink="/admin/jobs">Build Jobs</a>
 				<a class="nav-link fw-bold" href="https://github.com/AcaciaLinux/">GitHub</a>
+				<app-login-modal #loginModal fxHide fxShow.lt-md="true"></app-login-modal>
 			</div>
 		</div>
+		<div class="navbar-nav nav-right" fxHide fxShow.gt-sm="true">
+			<app-login-modal #loginModal></app-login-modal>
+		</div>
 	</div>
+
 </nav>
 
 <div [style.padding-top.px]="navbar.offsetHeight" [style.height.px]="contentHeight">

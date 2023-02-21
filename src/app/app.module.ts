@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BuildJobsComponent } from './admin/build-jobs/build-jobs.component';
 import { CodeEditorModule } from '@ngstack/code-editor';
 import { EditorComponent } from './editor/editor.component';
+import { LoginModalComponent } from './modals/login-modal/login-modal.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { EditorComponent } from './editor/editor.component';
     DownloadsComponent,
     HomeComponent,
     BuildJobsComponent,
-    EditorComponent
+    EditorComponent,
+    LoginModalComponent
   ],
   imports: [
     BrowserModule,
