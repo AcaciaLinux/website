@@ -18,4 +18,5 @@
 		</div>
 	</ng-template>
 </div>
-<button class="btn btn-primary" (click)="this.show(modalData)" [hidden]="this.branchService.config.authKey != ''">Login</button>
+<button class="btn btn-light" (click)="this.show(modalData)" [hidden]="this.branchService.config.authKey != ''">Login</button>
+<button class="btn btn-light" (click)="this.logoff()" [hidden]="this.branchService.config.authKey == ''">Logoff</button>

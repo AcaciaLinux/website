@@ -27,4 +27,9 @@ export class LoginModalComponent {
     //And dismiss the dialog
     this.modalService.dismissAll();
   }
+
+  //Calls BranchService::logoff() to log off
+  logoff(){
+    this.branchService.logoff();
+  }
 }
