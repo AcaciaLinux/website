@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CodeModel } from '@ngstack/code-editor';
+import { Subscription } from 'rxjs';
 import { BranchService } from '../shared/branch/branch.service';
 import { EventService, EventType } from '../shared/event/event.service';
 
@@ -13,6 +14,7 @@ export class EditorComponent {
   theme = 'vs-light';
 
   public cur_pkgbuild_name: string = "";
+  private events_subscription: Subscription;
 
   constructor(private route: ActivatedRoute, public branch: BranchService, private events: EventService) {
     this.route.params.subscribe(args => {
@@ -25,7 +27,7 @@ export class EditorComponent {
     });
 
     //Subscribe to the submit event
-    this.events.emitter.subscribe(val => {
+    this.events_subscription = this.events.emitter.subscribe(val => {
       if (val == EventType.EDITOR_SUBMIT){
         //Check authentication, if valid, submit
         this.branch.checkauth().subscribe(valid => {
@@ -74,6 +76,10 @@ export class EditorComponent {
         });
       }
     });
+  }
+
+  ngOnDestroy(){
+    this.events_subscription.unsubscribe();
   }
 
   model: CodeModel = {
