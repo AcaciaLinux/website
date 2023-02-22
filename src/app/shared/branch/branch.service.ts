@@ -111,6 +111,26 @@ export class BranchService {
       .pipe(map(val => this.defaultPipe("releasebuild " + pkgname, val)));
   }
 
+  clearcompletedjobs(): Observable<boolean>{
+    let req = {
+      authkey: this.config.authKey
+    }
+
+    return this.http.post(this.config.getBranchAPIURL() + "clearcompletedjobs", req)
+      .pipe(map<any, BranchResponse>(data => data))
+      .pipe(map(val => this.defaultPipe("clear completed jobs", val)));
+  }
+
+  cancelqueuedjobs(): Observable<boolean>{
+    let req = {
+      authkey: this.config.authKey
+    }
+
+    return this.http.post(this.config.getBranchAPIURL() + "cancelqueuedjobs", req)
+      .pipe(map<any, BranchResponse>(data => data))
+      .pipe(map(val => this.defaultPipe("cancel queued jobs", val)));
+  }
+
   //A pipe function handling the response of an authentication call
   authPipe(self: BranchService, res: BranchResponse): boolean{
     let is_ok = res.response_code == 200;
