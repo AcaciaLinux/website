@@ -47,6 +47,23 @@ export class BranchService {
       .pipe(map(arg => this.checkauthPipe(this, arg)));
   }
 
+  logoff(){
+    let req = {
+      authkey: this.config.authKey
+    };
+
+    return this.http.post(this.config.getBranchAPIURL() + "logoff", req)
+      .pipe(map<any, BranchResponse>(data => data))
+      .subscribe(val => {
+        if (val.response_code == 200){
+          this.config.authKey = "";
+          console.debug("Logoff ok!");
+        } else {
+          this.error("logoff", val.payload);
+        }
+      });
+  }
+
   submit(pkgbuild: string): Observable<boolean>{
     let req = {
       authkey: this.config.authKey,
