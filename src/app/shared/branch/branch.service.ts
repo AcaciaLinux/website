@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ConfigService } from '../config/config.service';
-import { map, Observable } from 'rxjs';
+import { interval, map, Observable, Subscription } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 
 class BranchResponse{
@@ -16,6 +16,10 @@ class BranchResponse{
 export class BranchService {
 
   constructor(public config: ConfigService, private http: HttpClient, private cookies: CookieService) {
+    //Check authkey every 60 sec
+    const checkauth_timer = interval(60000);
+    checkauth_timer.subscribe(_ => this.auto_checkauth());
+
     if (this.cookies.check("authkey")){
       this.checkauth(this.cookies.get("authkey")).subscribe();
     }
@@ -38,6 +42,13 @@ export class BranchService {
     return this.http.post(this.config.getBranchAPIURL() + "auth", req)
       .pipe(map<any, BranchResponse>(data => data))
       .pipe(map(arg => this.authPipe(this, arg)));
+  }
+
+  //The method called recurringly to check authentication
+  auto_checkauth(){
+    if (this.config.authKey != ""){
+      this.checkauth().subscribe();
+    }
   }
 
   checkauth(authkey: string = this.config.authKey): Observable<boolean>{
