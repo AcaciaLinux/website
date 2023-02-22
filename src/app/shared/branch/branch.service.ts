@@ -22,6 +22,10 @@ export class BranchService {
     return this.http.get(this.config.getBranchAPIURL() + "?get=" + get);
   }
 
+  error(action: string, message: string){
+    console.error("Failed to " + action + ": " + message);
+  }
+
   authenticate(username: string, password: string): Observable<boolean>{
     let req = {
       user: username,
@@ -43,19 +47,19 @@ export class BranchService {
       .pipe(map<any, BranchResponse>(data => data))
       .subscribe(res => {
         if (res.response_code != 200){
-          console.error("Failed to submit: " + res.payload);
+          this.error("submit packagebuild", res.payload);
         }
       });
   }
 
   //A pipe function handling the response of an authentication call
-  authPipe(self: BranchService, resp: BranchResponse): boolean{
-    let is_ok = resp.response_code == 200;
+  authPipe(self: BranchService, res: BranchResponse): boolean{
+    let is_ok = res.response_code == 200;
     if (is_ok){
-      self.config.authKey = resp.payload;
+      self.config.authKey = res.payload;
       console.debug("Authentication ok, authkey: '" + self.config.authKey + "'");
     } else {
-      console.error("Failed to authenticate with code " + resp.response_code + ": " + resp.payload);
+      this.error("authenticate", res.payload)
     }
     return is_ok;
   }
