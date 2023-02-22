@@ -1,5 +1,8 @@
 
 button{
-	margin-left: 2px;
 	margin-right: 2px;
+}
+
+#btn_submit{
+	margin-right: 10px;
 }
