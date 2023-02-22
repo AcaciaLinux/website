@@ -30,6 +30,10 @@ export class LoginModalComponent {
 
   //Calls BranchService::logoff() to log off
   logoff(){
-    this.branchService.logoff();
+    this.branchService.checkauth().subscribe(authenticated => {
+      if (authenticated){
+        this.branchService.logoff();
+      }
+    });
   }
 }
