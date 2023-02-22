@@ -23,17 +23,29 @@ export class BranchService {
   }
 
   authenticate(username: string, password: string): Observable<boolean>{
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/x-www-form-urlencoded',
-      })
+    let req = {
+      user: username,
+      pass: password
     };
 
-    let req = "user=" + username + "&pass=" + password;
-
-    return this.http.post(this.config.getBranchAPIURL() + "auth", req, httpOptions)
+    return this.http.post(this.config.getBranchAPIURL() + "auth", req)
       .pipe(map<any, BranchResponse>(data => data))
       .pipe(map(arg => this.authPipe(this, arg)));
+  }
+
+  submit(pkgbuild: string){
+    let req = {
+      authkey: this.config.authKey,
+      packagebuild: pkgbuild
+    };
+
+    return this.http.post(this.config.getBranchAPIURL() + "submitpackagebuild", req)
+      .pipe(map<any, BranchResponse>(data => data))
+      .subscribe(res => {
+        if (res.response_code != 200){
+          console.error("Failed to submit: " + res.payload);
+        }
+      });
   }
 
   //A pipe function handling the response of an authentication call
