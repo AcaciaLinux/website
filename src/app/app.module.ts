@@ -19,6 +19,7 @@ import { LoginModalComponent } from './modals/login-modal/login-modal.component'
 import { EditorControlsComponent } from './controls/editor-controls/editor-controls.component';
 import { ControlsComponent } from './controls/controls.component';
 import { CookieService } from 'ngx-cookie-service';
+import { JobsControlsComponent } from './controls/jobs-controls/jobs-controls.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { CookieService } from 'ngx-cookie-service';
     EditorComponent,
     LoginModalComponent,
     EditorControlsComponent,
-    ControlsComponent
+    ControlsComponent,
+    JobsControlsComponent
   ],
   imports: [
     BrowserModule,
