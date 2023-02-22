@@ -47,7 +47,7 @@ export class BranchService {
       .pipe(map(arg => this.checkauthPipe(this, arg)));
   }
 
-  submit(pkgbuild: string){
+  submit(pkgbuild: string): Observable<boolean>{
     let req = {
       authkey: this.config.authKey,
       packagebuild: pkgbuild
@@ -55,11 +55,7 @@ export class BranchService {
 
     return this.http.post(this.config.getBranchAPIURL() + "submitpackagebuild", req)
       .pipe(map<any, BranchResponse>(data => data))
-      .subscribe(res => {
-        if (res.response_code != 200){
-          this.error("submit packagebuild", res.payload);
-        }
-      });
+      .pipe(map(val => this.submitPipe(this, val)));
   }
 
   //A pipe function handling the response of an authentication call
@@ -74,7 +70,7 @@ export class BranchService {
     return is_ok;
   }
 
-  //A pipe functino to check if the authkey is still valid
+  //A pipe function to check if the authkey is still valid
   checkauthPipe(self: BranchService, res: BranchResponse): boolean{
     let is_ok = res.response_code == 200;
     if (is_ok){
@@ -82,6 +78,17 @@ export class BranchService {
     } else {
       console.error("Authkey '" + self.config.authKey + "' is invalid");
       self.config.authKey = "";
+    }
+    return is_ok;
+  }
+
+  //A pipe function to check if the authkey is still valid
+  submitPipe(self: BranchService, res: BranchResponse): boolean{
+    let is_ok = res.response_code == 200;
+    if (is_ok){
+      console.debug("Packagebuild submit ok!");
+    } else {
+      this.error("submit packagebuild", res.payload)
     }
     return is_ok;
   }
