@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CodeModel } from '@ngstack/code-editor';
 import { BranchService } from '../shared/branch/branch.service';
+import { EventService, EventType } from '../shared/event/event.service';
 
 @Component({
   selector: 'app-editor',
@@ -11,13 +12,29 @@ import { BranchService } from '../shared/branch/branch.service';
 export class EditorComponent {
   theme = 'vs-light';
 
-  constructor(private route: ActivatedRoute, private branch: BranchService) {
+  public cur_pkgbuild_name: string = "";
+
+  constructor(private route: ActivatedRoute, public branch: BranchService, private events: EventService) {
     this.route.params.subscribe(args => {
+      this.cur_pkgbuild_name = args["pkgbuild"];
       this.branch
         .request("packagebuild&pkgname=" + args["pkgbuild"])
         .subscribe(res => {
           this.model.value = res.payload;
         })
+    });
+
+    //Subscribe to the submit event
+    this.events.emitter.subscribe(val => {
+      if (val == EventType.EDITOR_SUBMIT){
+        //Check authentication, if valid, submit
+        this.branch.checkauth().subscribe(valid => {
+          if (valid){
+            console.log("Submitting packagebuild " + this.cur_pkgbuild_name + "...");
+            this.branch.submit(this.model.value).subscribe();
+          }
+        });
+      }
     });
   }
 
@@ -35,6 +52,6 @@ export class EditorComponent {
   };
 
   onCodeChanged(value: string) {
-    console.log('CODE', value);
+
   }
 }
