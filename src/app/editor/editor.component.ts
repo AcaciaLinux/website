@@ -35,6 +35,44 @@ export class EditorComponent {
           }
         });
       }
+
+      else if (val == EventType.EDITOR_RELEASEBUILD){
+        //Check authentication, if valid, submit
+        this.branch.checkauth().subscribe(valid => {
+          if (valid){
+            console.log("Submitting packagebuild " + this.cur_pkgbuild_name + "...");
+
+            //Submit the packagebuild
+            this.branch.submit(this.model.value).subscribe(submitted => {
+              if (submitted){
+
+                //If submission is ok, request a releasebuild
+                console.log("Requesting releasebuild of " + this.cur_pkgbuild_name + "...");
+                this.branch.releasebuild(this.cur_pkgbuild_name).subscribe();
+              }
+            });
+          }
+        });
+      }
+
+      else if (val == EventType.EDITOR_CROSSBUILD){
+        //Check authentication, if valid, submit
+        this.branch.checkauth().subscribe(valid => {
+          if (valid){
+            console.log("Submitting packagebuild " + this.cur_pkgbuild_name + "...");
+
+            //Submit the packagebuild
+            this.branch.submit(this.model.value).subscribe(submitted => {
+              if (submitted){
+
+                //If submission is ok, request a crossbuild
+                console.log("Requesting crossbuild of " + this.cur_pkgbuild_name + "...");
+                this.branch.crossbuild(this.cur_pkgbuild_name).subscribe();
+              }
+            });
+          }
+        });
+      }
     });
   }
 
