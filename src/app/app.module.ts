@@ -16,6 +16,8 @@ import { BuildJobsComponent } from './admin/build-jobs/build-jobs.component';
 import { CodeEditorModule } from '@ngstack/code-editor';
 import { EditorComponent } from './editor/editor.component';
 import { LoginModalComponent } from './modals/login-modal/login-modal.component';
+import { EditorControlsComponent } from './controls/editor-controls/editor-controls.component';
+import { ControlsComponent } from './controls/controls.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { LoginModalComponent } from './modals/login-modal/login-modal.component'
     HomeComponent,
     BuildJobsComponent,
     EditorComponent,
-    LoginModalComponent
+    LoginModalComponent,
+    EditorControlsComponent,
+    ControlsComponent
   ],
   imports: [
     BrowserModule,
