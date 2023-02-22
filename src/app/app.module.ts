@@ -18,6 +18,7 @@ import { EditorComponent } from './editor/editor.component';
 import { LoginModalComponent } from './modals/login-modal/login-modal.component';
 import { EditorControlsComponent } from './controls/editor-controls/editor-controls.component';
 import { ControlsComponent } from './controls/controls.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,7 @@ import { ControlsComponent } from './controls/controls.component';
       typingsWorkerUrl: 'assets/workers/typings-worker.js'
     })
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
