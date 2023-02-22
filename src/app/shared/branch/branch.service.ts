@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ConfigService } from '../config/config.service';
 import { map, Observable } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 class BranchResponse{
   status: string = ""
@@ -14,8 +15,10 @@ class BranchResponse{
 })
 export class BranchService {
 
-  constructor(public config: ConfigService, private http: HttpClient) {
-
+  constructor(public config: ConfigService, private http: HttpClient, private cookies: CookieService) {
+    if (this.cookies.check("authkey")){
+      this.checkauth(this.cookies.get("authkey")).subscribe();
+    }
   }
 
   request(get: string): Observable<any> {
@@ -37,14 +40,14 @@ export class BranchService {
       .pipe(map(arg => this.authPipe(this, arg)));
   }
 
-  checkauth(): Observable<boolean>{
+  checkauth(authkey: string = this.config.authKey): Observable<boolean>{
     let req = {
-      authkey: this.config.authKey
+      authkey: authkey
     };
 
     return this.http.post(this.config.getBranchAPIURL() + "checkauth", req)
       .pipe(map<any, BranchResponse>(data => data))
-      .pipe(map(arg => this.checkauthPipe(this, arg)));
+      .pipe(map(arg => this.checkauthPipe(this, authkey, arg)));
   }
 
   logoff(){
@@ -80,6 +83,7 @@ export class BranchService {
     let is_ok = res.response_code == 200;
     if (is_ok){
       self.config.authKey = res.payload;
+      this.cookies.set("authkey", self.config.authKey);
       console.debug("Authentication ok, authkey: '" + self.config.authKey + "'");
     } else {
       this.error("authenticate", res.payload)
@@ -88,13 +92,17 @@ export class BranchService {
   }
 
   //A pipe function to check if the authkey is still valid
-  checkauthPipe(self: BranchService, res: BranchResponse): boolean{
+  checkauthPipe(self: BranchService, key: string, res: BranchResponse): boolean{
     let is_ok = res.response_code == 200;
     if (is_ok){
-      console.debug("Authkey '" + self.config.authKey + "' is still valid");
+      console.debug("Authkey '" + key + "' is still valid");
+      self.config.authKey = key;
     } else {
-      console.error("Authkey '" + self.config.authKey + "' is invalid");
+      console.error("Authkey '" + key + "' is invalid");
       self.config.authKey = "";
+      if (this.cookies.check("authkey")){
+        this.cookies.delete("authkey");
+      }
     }
     return is_ok;
   }
