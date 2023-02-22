@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
 import { BranchService } from 'src/app/shared/branch/branch.service';
 import { Job } from 'src/app/shared/classes/job';
+import { EventService, EventType } from 'src/app/shared/event/event.service';
 
 @Component({
   selector: 'app-build-jobs',
@@ -14,9 +15,14 @@ export class BuildJobsComponent {
   public running_jobs?: Job[];
   public completed_jobs?: Job[];
   subscription?: Subscription;
+  events_subscription: Subscription;
 
-  constructor(public branch: BranchService){
-
+  constructor(public branch: BranchService, private events: EventService){
+    this.events_subscription = this.events.emitter.subscribe(type => {
+      if (type = EventType.DATA_REFRESH){
+        this.updateData();
+      }
+    });
   }
 
   ngOnInit() {
@@ -27,6 +33,7 @@ export class BuildJobsComponent {
 
   ngOnDestroy() {
     this.subscription?.unsubscribe;
+    this.events_subscription.unsubscribe();
   }
 
   updateData(){
