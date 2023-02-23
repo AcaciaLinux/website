@@ -1,7 +1,7 @@
-import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CodeModel } from '@ngstack/code-editor';
-import { Subscription } from 'rxjs';
+import { map, of, Subscription, switchMap } from 'rxjs';
 import { BranchService } from '../shared/branch/branch.service';
 import { EventService, EventType } from '../shared/event/event.service';
 
@@ -15,6 +15,7 @@ export class EditorComponent {
 
   public cur_pkgbuild_name: string = "";
   private events_subscription: Subscription;
+  private curCode: string = "";
 
   constructor(private route: ActivatedRoute, public branch: BranchService, private events: EventService) {
     this.route.params.subscribe(args => {
@@ -29,53 +30,72 @@ export class EditorComponent {
     //Subscribe to the submit event
     this.events_subscription = this.events.emitter.subscribe(val => {
       if (val == EventType.EDITOR_SUBMIT){
-        //Check authentication, if valid, submit
-        this.branch.checkauth().subscribe(valid => {
-          if (valid){
-            console.log("Submitting packagebuild " + this.cur_pkgbuild_name + "...");
-            this.branch.submit(this.model.value).subscribe();
-          }
-        });
+        let submit_res = this.submit();
+        if (submit_res !== undefined){
+          submit_res.subscribe();
+        }
       }
 
       else if (val == EventType.EDITOR_RELEASEBUILD){
-        //Check authentication, if valid, submit
-        this.branch.checkauth().subscribe(valid => {
-          if (valid){
-            console.log("Submitting packagebuild " + this.cur_pkgbuild_name + "...");
-
-            //Submit the packagebuild
-            this.branch.submit(this.model.value).subscribe(submitted => {
-              if (submitted){
-
-                //If submission is ok, request a releasebuild
-                console.log("Requesting releasebuild of " + this.cur_pkgbuild_name + "...");
-                this.branch.releasebuild(this.cur_pkgbuild_name).subscribe();
-              }
-            });
-          }
-        });
+        this.releasebuild();
       }
 
       else if (val == EventType.EDITOR_CROSSBUILD){
-        //Check authentication, if valid, submit
-        this.branch.checkauth().subscribe(valid => {
-          if (valid){
-            console.log("Submitting packagebuild " + this.cur_pkgbuild_name + "...");
-
-            //Submit the packagebuild
-            this.branch.submit(this.model.value).subscribe(submitted => {
-              if (submitted){
-
-                //If submission is ok, request a crossbuild
-                console.log("Requesting crossbuild of " + this.cur_pkgbuild_name + "...");
-                this.branch.crossbuild(this.cur_pkgbuild_name).subscribe();
-              }
-            });
-          }
-        });
+        this.crossbuild();
       }
     });
+  }
+
+  submit(){
+    if (this.curCode == ""){
+      console.debug("No change to the packagebuild, skipping submission");
+      return undefined;
+    }
+
+    return this.branch.checkauth()
+      .pipe(switchMap(auth => {
+        if (auth){
+          return this.branch.submit(this.curCode).pipe(
+            map(res => {
+              if (res){
+                this.curCode = "";
+              }
+              return res;
+            }))
+        } else {
+          return of(false);
+        }
+      }));
+  }
+
+  releasebuild(){
+    let submit_res = this.submit();
+
+    //If no submission was done, request the build anyway
+    if (submit_res === undefined){
+      this.branch.releasebuild(this.cur_pkgbuild_name).subscribe();
+    } else {
+      submit_res.subscribe(ok => {
+        if (ok){
+          this.branch.releasebuild(this.cur_pkgbuild_name).subscribe();
+        }
+      });
+    }
+  }
+
+  crossbuild(){
+    let submit_res = this.submit();
+
+    //If no submission was done, request the build anyway
+    if (submit_res === undefined){
+      this.branch.crossbuild(this.cur_pkgbuild_name).subscribe();
+    } else {
+      submit_res.subscribe(ok => {
+        if (ok){
+          this.branch.crossbuild(this.cur_pkgbuild_name).subscribe();
+        }
+      });
+    }
   }
 
   ngOnDestroy(){
@@ -96,6 +116,6 @@ export class EditorComponent {
   };
 
   onCodeChanged(value: string) {
-
+    this.curCode = value;
   }
 }
