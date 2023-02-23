@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Subscription, interval } from 'rxjs';
 import { BranchService } from '../shared/branch/branch.service';
 import { Package } from '../shared/classes/package';
+import { EventService, EventType } from '../shared/event/event.service';
 
 @Component({
   selector: 'app-packagebuilds',
@@ -12,20 +13,19 @@ import { Package } from '../shared/classes/package';
 export class PackagebuildsComponent {
   public pkgbuilds?: string[];
   public packages?: Package[];
-  subscription?: Subscription;
+  subscription: Subscription;
 
-  constructor(public branch: BranchService, private router: Router){
-
-  }
-
-  ngOnInit() {
-    const source = interval(15000);
-    this.subscription = source.subscribe(val => this.updateData());
+  constructor(public branch: BranchService, private router: Router, private events: EventService){
+    this.subscription = this.events.emitter.subscribe(event => {
+      if (event == EventType.DATA_REFRESH){
+        this.updateData();
+      }
+    });
     this.updateData();
   }
 
   ngOnDestroy() {
-    this.subscription?.unsubscribe;
+    this.subscription.unsubscribe();
   }
 
   pkgIsBuilt(name: string): boolean{
@@ -52,15 +52,15 @@ export class PackagebuildsComponent {
   }
 
   updateData(){
+    console.debug("[PACKAGEBUILDS] Refreshing data...");
+
     this.branch.request("packagebuildlist")
       .subscribe(data => {
-        console.log("Updating data");
         this.pkgbuilds = data.payload;
         this.pkgbuilds?.sort((a, b) => a?.localeCompare(b)) //Sort the pkgbuilds by name
       })
     this.branch.request("packagelist")
       .subscribe(data => {
-        console.log("Updating data");
         this.packages = data.payload;
       })
   }

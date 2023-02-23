@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { BranchService } from '../shared/branch/branch.service';
 import { map } from 'rxjs/operators';
 import { Package } from '../shared/classes/package';
+import { Subscription } from 'rxjs';
+import { EventService, EventType } from '../shared/event/event.service';
 
 @Component({
   selector: 'app-packages',
@@ -11,17 +13,19 @@ import { Package } from '../shared/classes/package';
 export class PackagesComponent {
 
   public packages?: Package[];
+  private subscription: Subscription;
 
-  constructor(public branch: BranchService){
-
+  constructor(public branch: BranchService, private events: EventService){
+    this.subscription = this.events.emitter.subscribe(event => {
+      if (event == EventType.DATA_REFRESH){
+        this.updateData();
+      }
+    });
+    this.updateData();
   }
 
-  ngOnInit() {
-    this.branch.request("packagelist")
-      .subscribe(data => {
-        this.packages = data.payload; //Create the packages array
-        this.packages?.sort((a, b) => a.name?.localeCompare(b.name)) //Sort the packages by name
-      })
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   getPkgDepsString(pkg: Package): string{
@@ -34,6 +38,16 @@ export class PackagesComponent {
     }
 
     return res;
+  }
+
+  updateData(){
+    console.debug("[PACKAGES] Refreshing data...");
+
+    this.branch.request("packagelist")
+      .subscribe(data => {
+        this.packages = data.payload; //Create the packages array
+        this.packages?.sort((a, b) => a.name?.localeCompare(b.name)) //Sort the packages by name
+      });
   }
 
 }
