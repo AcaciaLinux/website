@@ -20,11 +20,7 @@ export class AppComponent {
         document.getElementById("navbar-alt-markup")?.classList.add("collapse");
       }
     });
-  }
-
-  ngAfterViewInit() {
-    this.navHeight = this.navbar?.nativeElement.offsetHeight;
-    this.contentHeight = window.innerHeight;
+    this.onResize();
   }
 
   toggleNav() {
