@@ -4,7 +4,7 @@ import { ConfigService } from '../config/config.service';
 import { interval, map, Observable, Subscription } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 
-class BranchResponse{
+export class BranchResponse{
   status: string = ""
   response_code: number = 0;
   payload: any
@@ -131,6 +131,17 @@ export class BranchService {
       .pipe(map(val => this.defaultPipe("cancel queued jobs", val)));
   }
 
+  getlog(jobID: string): Observable<string[] | undefined>{
+    let req = {
+      authkey: this.config.authKey,
+      jobid: jobID
+    }
+
+    return this.http.post(this.config.getBranchAPIURL() + "viewlog", req)
+      .pipe(map<any, BranchResponse>(data => data))
+      .pipe(map(val => this.logPipe(val)));
+  }
+
   //A pipe function handling the response of an authentication call
   authPipe(self: BranchService, res: BranchResponse): boolean{
     let is_ok = res.response_code == 200;
@@ -158,6 +169,17 @@ export class BranchService {
       }
     }
     return is_ok;
+  }
+
+  //A pipe function to check if the log was retrieved correctly
+  logPipe(res: BranchResponse): string[] | undefined{
+    let is_ok = res.response_code == 200;
+    if (is_ok){
+      return res.payload;
+    } else {
+      this.error("retrieve log", res.payload)
+      return undefined;
+    }
   }
 
   //A pipe function to check if the authkey is still valid
