@@ -20,6 +20,7 @@ import { EditorControlsComponent } from './controls/editor-controls/editor-contr
 import { ControlsComponent } from './controls/controls.component';
 import { CookieService } from 'ngx-cookie-service';
 import { JobsControlsComponent } from './controls/jobs-controls/jobs-controls.component';
+import { LogViewModalComponent } from './modals/log-view-modal/log-view-modal.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { JobsControlsComponent } from './controls/jobs-controls/jobs-controls.co
     LoginModalComponent,
     EditorControlsComponent,
     ControlsComponent,
-    JobsControlsComponent
+    JobsControlsComponent,
+    LogViewModalComponent
   ],
   imports: [
     BrowserModule,
