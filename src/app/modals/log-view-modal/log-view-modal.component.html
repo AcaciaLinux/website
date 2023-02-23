@@ -1,0 +1,14 @@
+<div>
+	<ng-template #modalData let-modal>
+		<div class="modal-header">
+			<h4 class="modal-title" id="modal-basic-title">Log for job {{this.jobID}}</h4>
+		</div>
+		<div class="modal-body">
+			<!--<p style="font-family: monospace;" *ngFor="let line of this.log;">{{line}}</p>-->
+			<p style="font-family: monospace;" [innerHTML]="this.log"></p>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-primary" (click)="modal.close('dismiss')">Done</button>
+		</div>
+	</ng-template>
+</div>
