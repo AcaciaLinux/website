@@ -29,7 +29,7 @@
 		<tr>
 			<td colspan="4"><h3>Completed Jobs ({{completed_jobs?.length}})</h3></td>
 		</tr>
-		<tr *ngFor="let job of completed_jobs">
+		<tr *ngFor="let job of completed_jobs?.slice()?.reverse()" (click)="logViewModal.show(job.job_id);">
 			<td class="al_td al_nowrap al_center">{{ job.build_pkg_name }}</td>
 			<td fxHide.lt-md class="al_td al_nowrap al_center">{{ job.job_id }}</td>
 			<td class="al_td al_nowrap al_center">{{ job.requesting_client }}</td>
@@ -37,3 +37,5 @@
 		</tr>
 	</tbody>
 </table>
+
+<app-log-view-modal #logViewModal></app-log-view-modal>
