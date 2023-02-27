@@ -7,6 +7,7 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 export class ConfigService {
   private config = {
     branchAPIURL: 'https://api.acacialinux.org/',
+    artifactsURL: "https://artifacts.acacialinux.org/artifacts.json",
     isDarkMode: false
   }
 
@@ -29,6 +30,10 @@ export class ConfigService {
 
   getBranchAPIURL() {
     return this.config.branchAPIURL;
+  }
+
+  getArtifactsURL() {
+    return this.config.artifactsURL;
   }
 
   isDarkMode(): boolean{
