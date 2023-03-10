@@ -33,7 +33,7 @@ export class BranchService {
     console.error("Failed to " + action + ": " + message);
   }
 
-  authenticate(username: string, password: string): Observable<boolean>{
+  authenticate(username: string, password: string): Observable<string>{
     let req = {
       user: username,
       pass: password
@@ -143,16 +143,17 @@ export class BranchService {
   }
 
   //A pipe function handling the response of an authentication call
-  authPipe(self: BranchService, res: BranchResponse): boolean{
+  authPipe(self: BranchService, res: BranchResponse): string{
     let is_ok = res.response_code == 200;
     if (is_ok){
       self.config.authKey = res.payload;
       this.cookies.set("authkey", self.config.authKey);
       console.debug("Authentication ok, authkey: '" + self.config.authKey + "'");
+      return "";
     } else {
-      this.error("authenticate", res.payload)
+      this.error("authenticate", res.payload);
+      return res.payload;
     }
-    return is_ok;
   }
 
   //A pipe function to check if the authkey is still valid
