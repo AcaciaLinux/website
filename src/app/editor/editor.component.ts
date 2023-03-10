@@ -4,6 +4,7 @@ import { CodeModel } from '@ngstack/code-editor';
 import { map, of, Subscription, switchMap } from 'rxjs';
 import { BranchService } from '../shared/branch/branch.service';
 import { EventService, EventType } from '../shared/event/event.service';
+import { ToastService } from '../toasts-container/toast-service';
 
 @Component({
   selector: 'app-editor',
@@ -17,7 +18,7 @@ export class EditorComponent {
   private events_subscription: Subscription;
   private curCode: string = "";
 
-  constructor(private route: ActivatedRoute, public branch: BranchService, private events: EventService) {
+  constructor(private route: ActivatedRoute, public branch: BranchService, private events: EventService, private toasts: ToastService) {
     this.route.params.subscribe(args => {
       this.cur_pkgbuild_name = args["pkgbuild"];
       this.branch
@@ -48,7 +49,7 @@ export class EditorComponent {
 
   submit(){
     if (this.curCode == ""){
-      console.debug("No change to the packagebuild, skipping submission");
+      this.toasts.s_i("No change to packagebuild, skipped submission");
       return undefined;
     }
 
