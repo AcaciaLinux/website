@@ -21,6 +21,7 @@ import { ControlsComponent } from './controls/controls.component';
 import { CookieService } from 'ngx-cookie-service';
 import { JobsControlsComponent } from './controls/jobs-controls/jobs-controls.component';
 import { LogViewModalComponent } from './modals/log-view-modal/log-view-modal.component';
+import { ToastsContainer } from './toasts-container/toasts-container.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { LogViewModalComponent } from './modals/log-view-modal/log-view-modal.co
       { path: '', redirectTo: 'home', pathMatch: 'full'}
     ]),
     NgbModule,
+    ToastsContainer,
     CodeEditorModule.forRoot({
       baseUrl: 'assets/monaco',
       typingsWorkerUrl: 'assets/workers/typings-worker.js'
