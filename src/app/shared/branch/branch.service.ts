@@ -109,7 +109,7 @@ export class BranchService {
 
     return this.http.post(this.config.getBranchAPIURL() + "crossbuild", req)
       .pipe(map<any, BranchResponse>(data => data))
-      .pipe(map(val => this.defaultPipe("releasebuild " + pkgname, val)));
+      .pipe(map(val => this.defaultPipe("crossbuild " + pkgname, val)));
   }
 
   clearcompletedjobs(): Observable<boolean>{
