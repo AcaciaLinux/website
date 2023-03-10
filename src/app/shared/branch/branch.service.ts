@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ConfigService } from '../config/config.service';
 import { interval, map, Observable, Subscription } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { ToastService } from 'src/app/toasts-container/toast-service';
 
 export class BranchResponse{
   status: string = ""
@@ -15,7 +16,7 @@ export class BranchResponse{
 })
 export class BranchService {
 
-  constructor(public config: ConfigService, private http: HttpClient, private cookies: CookieService) {
+  constructor(public config: ConfigService, private http: HttpClient, private cookies: CookieService, private toasts: ToastService) {
     //Check authkey every 60 sec
     const checkauth_timer = interval(60000);
     checkauth_timer.subscribe(_ => this.auto_checkauth());
@@ -188,8 +189,10 @@ export class BranchService {
     let is_ok = res.response_code == 200;
     if (is_ok){
       console.debug("Action " + action + " ok!");
+      this.toasts.s_ok("Action " + action + " ok!");
     } else {
       this.error(action, res.payload)
+      this.toasts.s_err("Failed to " + action + ": " + res.payload);
     }
     return is_ok;
   }
