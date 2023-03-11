@@ -13,6 +13,7 @@ export class ConfigService {
 
   //The currently held authkey from the branch masterserver
   public authKey: string = "";
+  public username: string = "";
 
   constructor(@Inject(PLATFORM_ID) private platformId: object) {
     if (isPlatformBrowser(this.platformId)){
