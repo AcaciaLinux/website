@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CodeModel } from '@ngstack/code-editor';
 import { map, of, Subscription, switchMap } from 'rxjs';
@@ -118,5 +118,13 @@ export class EditorComponent {
 
   onCodeChanged(value: string) {
     this.curCode = value;
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent) {
+      if ((event.metaKey || event.ctrlKey) && event.key === 's') {
+          this.submit();
+          event.preventDefault();
+      }
   }
 }
