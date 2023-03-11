@@ -1,1 +1,20 @@
-<h1>AcaciaLinux.org admin page</h1>
+<div style="margin: 10px">
+
+    <h1>User management</h1>
+    <hr>
+
+    <!-- If the user is not logged in -->
+    <p *ngIf="this.branch.config.authKey == ''; else loggedIn">Not logged in</p>
+
+    <!-- If he is logged in, ensure only root can create users -->
+    <ng-template #loggedIn>
+
+        <p *ngIf="this.branch.config.username != 'root'">Currently logged in as <b>{{this.branch.config.username}}</b>, only root can create users!</p>
+
+        <p *ngIf="this.branch.config.username == 'root'">Currently logged in as <b>{{this.branch.config.username}}</b></p>
+
+    </ng-template>
+
+    <app-createuser-modal></app-createuser-modal>
+
+</div>
