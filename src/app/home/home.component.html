@@ -4,18 +4,7 @@
 	<div class="col-lg-6 mx-auto" style="bottom: 100">
 		<h1 class="display-5 fw-bold text-success mt-4">AcaciaLinux</h1>
 		<p class="lead mb-4">A customizable and completely selfhostable Linux distribution</p>
+		<button class="btn btn-primary" (click)="goToGitHub()">Visit the GitHub</button>
 	</div>
 </div>
-
-<p>home works!</p>
 <p>API requests go to <a [href]="config.getBranchAPIURL()" >{{ config.getBranchAPIURL() }}</a></p>
-
-<h3>Quick Links</h3>
-<ul>
-	<li><a routerLink="/packages">Packages</a></li>
-	<li><a routerLink="/packagebuilds">Packagebuilds</a></li>
-	<li><a routerLink="/downloads">Downloads</a></li>
-	<li><a routerLink="/admin">Admin</a></li>
-	<li><a routerLink="/admin/jobs">Build Jobs</a></li>
-	
-</ul>

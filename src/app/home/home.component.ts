@@ -10,4 +10,8 @@ export class HomeComponent {
   constructor(public config: ConfigService){
 
   }
+
+  goToGitHub(){
+    window.location.href = "https://github.com/AcaciaLinux";
+  }
 }
