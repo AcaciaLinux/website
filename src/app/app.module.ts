@@ -23,6 +23,7 @@ import { JobsControlsComponent } from './controls/jobs-controls/jobs-controls.co
 import { LogViewModalComponent } from './modals/log-view-modal/log-view-modal.component';
 import { ToastsContainer } from './toasts-container/toasts-container.component';
 import { CreateuserModalComponent } from './modals/createuser-modal/createuser-modal.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -39,13 +40,15 @@ import { CreateuserModalComponent } from './modals/createuser-modal/createuser-m
     EditorControlsComponent,
     ControlsComponent,
     JobsControlsComponent,
-    LogViewModalComponent
+    LogViewModalComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FlexLayoutModule,
     RouterModule.forRoot([
+      { path: '', redirectTo: 'home', pathMatch: 'full'},
       { path: 'home', component: HomeComponent },
       { path: 'packages', component: PackagesComponent },
       { path: 'packagebuilds', component: PackagebuildsComponent },
@@ -53,7 +56,7 @@ import { CreateuserModalComponent } from './modals/createuser-modal/createuser-m
       { path: 'admin', component: AdminComponent },
       { path: 'admin/jobs', component: BuildJobsComponent },
       { path: 'editor/:pkgbuild', component: EditorComponent },
-      { path: '', redirectTo: 'home', pathMatch: 'full'}
+      { path: '**', component: NotFoundComponent }
     ]),
     NgbModule,
     ToastsContainer,
