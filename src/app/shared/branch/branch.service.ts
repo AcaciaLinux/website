@@ -79,6 +79,18 @@ export class BranchService {
       });
   }
 
+  createuser(username: string, password: string): Observable<string>{
+    let req = {
+      authkey: this.config.authKey,
+      cuser: username,
+      cpass: password
+    };
+
+    return this.http.post(this.config.getBranchAPIURL() + "createuser", req)
+      .pipe(map<any, BranchResponse>(data => data))
+      .pipe(map(val => this.createuserPipe(val)));
+  }
+
   submit(pkgbuild: string): Observable<boolean>{
     let req = {
       authkey: this.config.authKey,
@@ -153,6 +165,14 @@ export class BranchService {
       return "";
     } else {
       this.error("authenticate", res.payload);
+      return res.payload;
+    }
+  }
+
+  createuserPipe(res: BranchResponse): string{
+    if (res.response_code == 200){
+      return "";
+    } else {
       return res.payload;
     }
   }
