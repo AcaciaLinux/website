@@ -1,0 +1,23 @@
+<div>
+	<ng-template #modalData let-modal>
+		<div class="modal-header">
+			<h4 class="modal-title" id="modal-basic-title">Create new user</h4>
+		</div>
+		<div class="modal-body">
+			<form>
+				<p style="margin-left: 1px;">Username</p>
+				<input #username class="form-control" style="margin-left: 1px;" type="email" id="username" title="Username">
+				<p style="margin-left: 1px; margin-top: 10px;">Password</p>
+				<input #password class="form-control" style="margin-left: 1px;" type="password" id="password" title="Password">
+				<p style="margin-left: 1px; margin-top: 10px;">Password repeat</p>
+				<input #passwordrepeat class="form-control" style="margin-left: 1px;" type="password" id="passwordrepeat" title="Password repeat">
+				<br>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" (click)="modal.close('dismiss')">Dismiss</button>
+			<button type="button" class="btn btn-primary" (click)="this.adduser(username.value, password.value, passwordrepeat.value)">Submit</button>
+		</div>
+	</ng-template>
+</div>
+<button class="btn btn-primary" (click)="this.show(modalData)" [disabled]="this.branchService.config.authKey == '' || this.branchService.config.username != 'root'">Create new user</button>

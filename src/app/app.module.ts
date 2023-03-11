@@ -22,6 +22,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { JobsControlsComponent } from './controls/jobs-controls/jobs-controls.component';
 import { LogViewModalComponent } from './modals/log-view-modal/log-view-modal.component';
 import { ToastsContainer } from './toasts-container/toasts-container.component';
+import { CreateuserModalComponent } from './modals/createuser-modal/createuser-modal.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ToastsContainer } from './toasts-container/toasts-container.component';
     BuildJobsComponent,
     EditorComponent,
     LoginModalComponent,
+    CreateuserModalComponent,
     EditorControlsComponent,
     ControlsComponent,
     JobsControlsComponent,
