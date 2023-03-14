@@ -39,7 +39,10 @@ export class ConfigService {
   }
 
   getWikiURL() {
-    return this.config.wikiURL;
+    if (this.config.wikiURL.endsWith('/'))
+      return this.config.wikiURL;
+    else
+      return this.config.wikiURL + "/";
   }
 
   isDarkMode(): boolean{

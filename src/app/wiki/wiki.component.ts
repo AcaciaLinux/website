@@ -34,8 +34,8 @@ export class WikiComponent {
           const linkURL = el.getAttribute && el.getAttribute('href');
 
           if (linkURL){
-            if (linkURL.startsWith('/') || linkURL.startsWith('.')){
-              this.router.navigate(("wiki/" + linkURL.replaceAll(".md", "")).split('/'));
+            if (linkURL.startsWith('/')){
+              this.router.navigate(("wiki" + linkURL.replaceAll(".md", "")).split('/'));
               e.preventDefault();
             }
           }
@@ -51,7 +51,7 @@ export class WikiComponent {
       return this.config.getWikiURL() + "Home.md";
     }
 
-    return this.config.getWikiURL() + "/" + url.toString().replaceAll(',', '/') + ".md";
+    return this.config.getWikiURL() + url.toString().replaceAll(',', '/') + ".md";
   }
 
   ngOnInit(): void{
