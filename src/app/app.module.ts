@@ -24,6 +24,7 @@ import { LogViewModalComponent } from './modals/log-view-modal/log-view-modal.co
 import { ToastsContainer } from './toasts-container/toasts-container.component';
 import { CreateuserModalComponent } from './modals/createuser-modal/createuser-modal.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { MarkdownModule } from 'ngx-markdown';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     CodeEditorModule.forRoot({
       baseUrl: 'assets/monaco',
       typingsWorkerUrl: 'assets/workers/typings-worker.js'
-    })
+    }),
+    MarkdownModule.forRoot()
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]
