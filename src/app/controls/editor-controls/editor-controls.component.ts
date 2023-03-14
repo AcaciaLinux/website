@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { EditorComponent } from 'src/app/editor/editor.component';
+import { Router } from '@angular/router';
 import { BranchService } from 'src/app/shared/branch/branch.service';
 import { EventService, EventType } from 'src/app/shared/event/event.service';
 

@@ -10,11 +10,8 @@ import { PackagesComponent } from './packages/packages.component';
 import { PackagebuildsComponent } from './packagebuilds/packagebuilds.component';
 import { DownloadsComponent } from './downloads/downloads.component';
 import { HomeComponent } from './home/home.component';
-import { ConfigService } from './shared/config/config.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BuildJobsComponent } from './admin/build-jobs/build-jobs.component';
-import { CodeEditorModule } from '@ngstack/code-editor';
-import { EditorComponent } from './editor/editor.component';
 import { LoginModalComponent } from './modals/login-modal/login-modal.component';
 import { EditorControlsComponent } from './controls/editor-controls/editor-controls.component';
 import { ControlsComponent } from './controls/controls.component';
@@ -26,6 +23,7 @@ import { CreateuserModalComponent } from './modals/createuser-modal/createuser-m
 import { NotFoundComponent } from './not-found/not-found.component';
 import { MarkdownModule } from 'ngx-markdown';
 import { WikiComponent } from './wiki/wiki.component';
+import { CodeEditorModule } from '@ngstack/code-editor';
 
 @NgModule({
   declarations: [
@@ -36,7 +34,6 @@ import { WikiComponent } from './wiki/wiki.component';
     DownloadsComponent,
     HomeComponent,
     BuildJobsComponent,
-    EditorComponent,
     LoginModalComponent,
     CreateuserModalComponent,
     EditorControlsComponent,
@@ -61,7 +58,7 @@ import { WikiComponent } from './wiki/wiki.component';
       { path: 'downloads', component: DownloadsComponent },
       { path: 'admin', component: AdminComponent },
       { path: 'admin/jobs', component: BuildJobsComponent },
-      { path: 'editor/:pkgbuild', component: EditorComponent },
+      { path: 'editor/:pkgbuild', loadChildren: () => import('./editor/editor.module').then(m => m.EditorModule) },
       { path: '**', component: NotFoundComponent, pathMatch: 'full' }
     ]),
     NgbModule,
