@@ -8,6 +8,7 @@ export class ConfigService {
   private config = {
     branchAPIURL: 'https://api.acacialinux.org/',
     artifactsURL: "https://artifacts.acacialinux.org/artifacts.json",
+    wikiURL: "assets/wiki/",
     isDarkMode: false
   }
 
@@ -35,6 +36,10 @@ export class ConfigService {
 
   getArtifactsURL() {
     return this.config.artifactsURL;
+  }
+
+  getWikiURL() {
+    return this.config.wikiURL;
   }
 
   isDarkMode(): boolean{

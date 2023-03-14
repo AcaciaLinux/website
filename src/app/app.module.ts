@@ -25,6 +25,7 @@ import { ToastsContainer } from './toasts-container/toasts-container.component';
 import { CreateuserModalComponent } from './modals/createuser-modal/createuser-modal.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { MarkdownModule } from 'ngx-markdown';
+import { WikiComponent } from './wiki/wiki.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { MarkdownModule } from 'ngx-markdown';
     ControlsComponent,
     JobsControlsComponent,
     LogViewModalComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    WikiComponent
   ],
   imports: [
     BrowserModule,
@@ -51,13 +53,16 @@ import { MarkdownModule } from 'ngx-markdown';
     RouterModule.forRoot([
       { path: '', redirectTo: 'home', pathMatch: 'full'},
       { path: 'home', component: HomeComponent },
+      { path: 'wiki', children: [
+        { path: '**', component: WikiComponent }
+      ]},
       { path: 'packages', component: PackagesComponent },
       { path: 'packagebuilds', component: PackagebuildsComponent },
       { path: 'downloads', component: DownloadsComponent },
       { path: 'admin', component: AdminComponent },
       { path: 'admin/jobs', component: BuildJobsComponent },
       { path: 'editor/:pkgbuild', component: EditorComponent },
-      { path: '**', component: NotFoundComponent }
+      { path: '**', component: NotFoundComponent, pathMatch: 'full' }
     ]),
     NgbModule,
     ToastsContainer,
