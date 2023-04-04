@@ -24,6 +24,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { MarkdownModule } from 'ngx-markdown';
 import { WikiComponent } from './wiki/wiki.component';
 import { CodeEditorModule } from '@ngstack/code-editor';
+import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { CodeEditorModule } from '@ngstack/code-editor';
     JobsControlsComponent,
     LogViewModalComponent,
     NotFoundComponent,
-    WikiComponent
+    WikiComponent,
+    ConfirmModalComponent
   ],
   imports: [
     BrowserModule,

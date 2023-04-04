@@ -1,0 +1,14 @@
+<div>
+	<ng-template #modalData let-modal>
+		<div class="modal-header">
+			<h4 class="modal-title" id="modal-basic-title">{{this.title}}</h4>
+		</div>
+		<div class="modal-body">
+			<p>{{this.body}}</p>
+		</div>
+		<div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="modal.close(false)">No</button>
+			<button type="button" class="btn btn-primary" (click)="modal.close(true)">Yes</button>
+		</div>
+	</ng-template>
+</div>
