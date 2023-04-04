@@ -1,4 +1,11 @@
 <div *ngIf="this.shouldShow()">
-	<button class="btn btn-primary" (click)="do_cancel_queue()">Cancel queue</button>
-	<button class="btn btn-primary" (click)="do_clear_completed()">Clear completed</button>
+	<div ngbDropdown class="d-inline-block">
+		<button type="button" class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>
+			Actions
+		</button>
+		<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+			<button ngbDropdownItem (click)="do_cancel_queue()">Cancel queue</button>
+			<button ngbDropdownItem (click)="do_clear_completed()">Clear completed</button>
+		</div>
+	</div>
 </div>

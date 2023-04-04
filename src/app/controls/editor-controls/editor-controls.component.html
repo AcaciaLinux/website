@@ -1,7 +1,16 @@
 <div *ngIf="this.shouldShow('editor')">
 	<app-confirm-modal #md></app-confirm-modal>
-	<button id="btn_submit" class="btn btn-primary" (click)="do_submit()">Submit</button>
-	<button class="btn btn-primary" (click)="do_releasebuild()">Releasebuild</button>
-	<button class="btn btn-primary" (click)="do_crossbuild()">Crossbuild</button>
-	<button class="btn btn-danger" id="btn_delete" (click)="do_delete(md)">Delete</button>
+	<div ngbDropdown class="d-inline-block">
+		<button type="button" class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>
+			Actions
+		</button>
+		<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+			<button ngbDropdownItem (click)="do_submit()">Submit</button>
+			<div class="dropdown-divider"></div>
+			<button ngbDropdownItem (click)="do_releasebuild()">Releasebuild</button>
+			<button ngbDropdownItem (click)="do_crossbuild()">Crossbuild</button>
+			<div class="dropdown-divider"></div>
+			<button ngbDropdownItem (click)="do_delete(md)">Delete</button>
+		</div>
+	</div>
 </div>
