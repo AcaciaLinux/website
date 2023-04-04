@@ -27,8 +27,11 @@ export class EditorControlsComponent {
     this.events.push(EventType.EDITOR_CROSSBUILD);
   }
 
-  do_delete(ref: NgbModalRef){
-    ref.result.then(r => {
+  do_delete(mod: ConfirmModalComponent) {
+    mod.show(
+      "Confirmation",
+      "Do you really want to delete this package build and its resulted packages?"
+    ).result.then(r => {
       if (r !== undefined) {
         //Seems dumb, but it could be anything...
         if (r == true) {
