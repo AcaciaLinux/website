@@ -152,6 +152,17 @@ export class BranchService {
       .pipe(map(val => this.defaultPipe("cancel queued jobs", val)));
   }
 
+  deletepkg(pkgname: string): Observable<boolean>{
+    let req = {
+      authkey: this.config.authKey,
+      pkgname: pkgname
+    }
+
+    return this.http.post(this.config.getBranchAPIURL() + "deletepackage", req)
+      .pipe(map<any, BranchResponse>(data => data))
+      .pipe(map(val => this.defaultPipe("delete package & packagebuild '" + pkgname + "'", val)));
+  }
+
   getlog(jobID: string): Observable<string[] | undefined>{
     let req = {
       authkey: this.config.authKey,
