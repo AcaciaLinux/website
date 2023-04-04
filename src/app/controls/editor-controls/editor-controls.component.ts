@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmModalComponent } from 'src/app/modals/confirm-modal/confirm-modal.component';
 import { BranchService } from 'src/app/shared/branch/branch.service';
 import { EventService, EventType } from 'src/app/shared/event/event.service';
 
@@ -10,7 +12,7 @@ import { EventService, EventType } from 'src/app/shared/event/event.service';
 })
 export class EditorControlsComponent {
 
-  constructor(private router: Router, private events: EventService, private branch: BranchService){
+  constructor(private router: Router, private events: EventService, private branch: BranchService, private modals: NgbModal){
   }
 
   do_submit(){
@@ -23,6 +25,18 @@ export class EditorControlsComponent {
 
   do_crossbuild(){
     this.events.push(EventType.EDITOR_CROSSBUILD);
+  }
+
+  do_delete(ref: NgbModalRef){
+    ref.result.then(r => {
+      if (r !== undefined) {
+        //Seems dumb, but it could be anything...
+        if (r == true) {
+          this.events.push(EventType.EDITOR_DELETE);
+        }
+      }
+      return true;
+    });
   }
 
   shouldShow(route: string){

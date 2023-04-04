@@ -6,3 +6,7 @@ button{
 #btn_submit{
 	margin-right: 10px;
 }
+
+#btn_delete{
+	margin-left: 10px;
+}
