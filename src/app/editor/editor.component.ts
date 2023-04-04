@@ -1,5 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import { CodeModel } from '@ngstack/code-editor';
 import { map, of, Subscription, switchMap } from 'rxjs';
 import { BranchService } from '../shared/branch/branch.service';
@@ -18,7 +19,7 @@ export class EditorComponent {
   private events_subscription: Subscription;
   private curCode: string = "";
 
-  constructor(private route: ActivatedRoute, public branch: BranchService, private events: EventService, private toasts: ToastService) {
+  constructor(private route: ActivatedRoute, private location: Location, public branch: BranchService, private events: EventService, private toasts: ToastService) {
     this.route.params.subscribe(args => {
       this.cur_pkgbuild_name = args["pkgbuild"];
       this.branch
@@ -43,6 +44,10 @@ export class EditorComponent {
 
       else if (val == EventType.EDITOR_CROSSBUILD){
         this.crossbuild();
+      }
+
+      else if (val == EventType.EDITOR_DELETE){
+        this.delete();
       }
     });
   }
@@ -97,6 +102,13 @@ export class EditorComponent {
         }
       });
     }
+  }
+
+  delete(){
+    this.branch.deletepkg(this.cur_pkgbuild_name).subscribe(ok => {
+      if (ok)
+        this.location.back();
+    });
   }
 
   ngOnDestroy(){
