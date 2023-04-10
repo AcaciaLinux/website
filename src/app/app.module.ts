@@ -25,6 +25,7 @@ import { MarkdownModule } from 'ngx-markdown';
 import { WikiComponent } from './wiki/wiki.component';
 import { CodeEditorModule } from '@ngstack/code-editor';
 import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.component';
+import { PkgBuildModalComponent } from './modals/pkg-build-modal/pkg-build-modal.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.comp
     LogViewModalComponent,
     NotFoundComponent,
     WikiComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    PkgBuildModalComponent
   ],
   imports: [
     BrowserModule,

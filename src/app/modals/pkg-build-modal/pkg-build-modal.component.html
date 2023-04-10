@@ -1,0 +1,42 @@
+<div>
+    <ng-template #modalData let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Create new Packagebuild</h4>
+        </div>
+        <div class="modal-body">
+            <form>
+
+                <p style="margin-left: 1px;">Template</p>
+                <select #template class="form-select">
+                    <option *ngFor="let template of templates; let i = index" [value]="i">{{ template.name }}</option>
+                </select>
+                <br>
+
+                <p style="margin-left: 1px;">Name</p>
+                <input #name class="form-control" style="margin-left: 1px;" title="Name">
+                <br>
+
+                <p style="margin-left: 1px;">Version</p>
+                <input #version class="form-control" style="margin-left: 1px;" title="Version">
+                <br>
+
+                <p style="margin-left: 1px;">Description</p>
+                <input #desc class="form-control" style="margin-left: 1px;" title="Description">
+                <br>
+
+                <p style="margin-left: 1px;">Real version</p>
+                <input #relv class="form-control" style="margin-left: 1px;" type="number" value="0" title="Real Version">
+                <br>
+
+                <p style="margin-left: 1px;">Source</p>
+                <input #src class="form-control" style="margin-left: 1px;" type="url" title="Source">
+                <br>
+
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modal.close(false)">Dismiss</button>
+            <button type="button" class="btn btn-primary" (click)="this.create_pkg_build(modal, template.value, name.value, version.value, desc.value, relv.value, src.value)">Submit</button>
+        </div>
+    </ng-template>
+</div>
