@@ -1,5 +1,6 @@
 <div *ngIf="this.shouldShow('editor')">
-	<app-confirm-modal #md></app-confirm-modal>
+	<app-confirm-modal #md_delete></app-confirm-modal>
+	<app-pkg-build-modal #md_pkgbuild></app-pkg-build-modal>
 	<div ngbDropdown class="d-inline-block">
 		<button type="button" class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>
 			Actions
@@ -10,7 +11,8 @@
 			<button ngbDropdownItem (click)="do_releasebuild()">Releasebuild</button>
 			<button ngbDropdownItem (click)="do_crossbuild()">Crossbuild</button>
 			<div class="dropdown-divider"></div>
-			<button ngbDropdownItem (click)="do_delete(md)">Delete</button>
+			<button ngbDropdownItem (click)="do_new_pkgbuild(md_pkgbuild)">New Packagebuild</button>
+			<button ngbDropdownItem (click)="do_delete(md_delete)">Delete</button>
 		</div>
 	</div>
 </div>

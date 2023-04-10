@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmModalComponent } from 'src/app/modals/confirm-modal/confirm-modal.component';
+import { PkgBuildModalComponent } from 'src/app/modals/pkg-build-modal/pkg-build-modal.component';
 import { BranchService } from 'src/app/shared/branch/branch.service';
 import { EventService, EventType } from 'src/app/shared/event/event.service';
 
@@ -25,6 +26,10 @@ export class EditorControlsComponent {
 
   do_crossbuild(){
     this.events.push(EventType.EDITOR_CROSSBUILD);
+  }
+
+  do_new_pkgbuild(mod: PkgBuildModalComponent) {
+    mod.show().result.then();
   }
 
   do_delete(mod: ConfirmModalComponent) {
