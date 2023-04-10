@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { Package } from '../shared/classes/package';
 import { Subscription } from 'rxjs';
 import { EventService, EventType } from '../shared/event/event.service';
+import { SearchService } from '../shared/search/search.service';
 
 @Component({
   selector: 'app-packages',
@@ -12,20 +13,31 @@ import { EventService, EventType } from '../shared/event/event.service';
 })
 export class PackagesComponent {
 
+  private raw_packages?: Package[];
   public packages?: Package[];
   private subscription: Subscription;
 
-  constructor(public branch: BranchService, private events: EventService){
+  private cur_filter: string = "";
+  private search_sub: Subscription;
+
+  constructor(public branch: BranchService, private events: EventService, private search: SearchService){
     this.subscription = this.events.emitter.subscribe(event => {
       if (event == EventType.DATA_REFRESH){
         this.updateData();
       }
+    });
+    this.search_sub = this.search.emitter.subscribe(term => {
+      this.cur_filter = term;
+
+      if (this.raw_packages)
+        this.packages = this.filter(this.raw_packages);
     });
     this.updateData();
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.search_sub.unsubscribe();
   }
 
   getPkgDepsString(pkg: Package): string{
@@ -45,9 +57,14 @@ export class PackagesComponent {
 
     this.branch.request("packagelist")
       .subscribe(data => {
-        this.packages = data.payload; //Create the packages array
-        this.packages?.sort((a, b) => a.name?.localeCompare(b.name)) //Sort the packages by name
+        this.raw_packages = data.payload;
+        this.packages = this.filter(data.payload);
       });
+  }
+
+  filter(list: Package[]){
+    //Filter and sort by name
+    return list.filter((v) => v.name.toLowerCase().indexOf(this.cur_filter.toLowerCase()) > -1).sort((a, b) => a.name.localeCompare(b.name));
   }
 
 }
