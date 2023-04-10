@@ -6,9 +6,10 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 })
 export class ConfigService {
   private config = {
-    branchAPIURL: 'https://api.acacialinux.org/',
+    branchAPIURL: "https://api.acacialinux.org/",
     artifactsURL: "https://artifacts.acacialinux.org/artifacts.json",
-    wikiURL: "https://artifacts.acacialinux.org/wiki/",
+    wikiURL: "https://artifacts.acacialinux.org/wiki",
+    templatesURL: "https://artifacts.acacialinux.org/templates.json",
     isDarkMode: false
   }
 
@@ -36,6 +37,10 @@ export class ConfigService {
 
   getArtifactsURL() {
     return this.config.artifactsURL;
+  }
+
+  getTemplatesURL() {
+    return this.config.templatesURL;
   }
 
   getWikiURL() {
