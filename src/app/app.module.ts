@@ -25,6 +25,10 @@ import { MarkdownModule } from 'ngx-markdown';
 import { WikiComponent } from './wiki/wiki.component';
 import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.component';
 import { PkgBuildModalComponent } from './modals/pkg-build-modal/pkg-build-modal.component';
+import { SearchControlsComponent } from './controls/search-controls/search-controls.component';
+import { NgIconsModule } from '@ng-icons/core';
+import { bootstrapSearch } from '@ng-icons/bootstrap-icons';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -45,12 +49,15 @@ import { PkgBuildModalComponent } from './modals/pkg-build-modal/pkg-build-modal
     NotFoundComponent,
     WikiComponent,
     ConfirmModalComponent,
-    PkgBuildModalComponent
+    PkgBuildModalComponent,
+    SearchControlsComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FlexLayoutModule,
+    FormsModule,
+    NgIconsModule.withIcons({ bootstrapSearch }),
     RouterModule.forRoot([
       { path: '', redirectTo: 'home', pathMatch: 'full'},
       { path: 'home', component: HomeComponent },
