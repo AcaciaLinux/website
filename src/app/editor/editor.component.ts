@@ -1,9 +1,8 @@
 import { Component, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { CodeModel } from '@ngstack/code-editor';
 import { map, of, Subscription, switchMap } from 'rxjs';
-import { BranchService } from '../shared/branch/branch.service';
+import { BranchResponse, BranchService } from '../shared/branch/branch.service';
 import { EventService, EventType } from '../shared/event/event.service';
 import { ToastService } from '../toasts-container/toast-service';
 
@@ -17,15 +16,20 @@ export class EditorComponent {
 
   public cur_pkgbuild_name: string = "";
   private events_subscription: Subscription;
-  private curCode: string = "";
+  private last_submission: string = "";
+
+  public editorOptions = {theme: 'light', language: 'shell'};
+  public code: string= "löajsnglaksng";
 
   constructor(private route: ActivatedRoute, private location: Location, public branch: BranchService, private events: EventService, private toasts: ToastService) {
     this.route.params.subscribe(args => {
       this.cur_pkgbuild_name = args["pkgbuild"];
       this.branch
         .request("packagebuild&pkgname=" + args["pkgbuild"])
+        .pipe(map<any, BranchResponse>(v => v))
         .subscribe(res => {
-          this.model.value = res.payload;
+          this.code = res.payload;
+          this.last_submission = res.payload;
         })
     });
 
@@ -53,19 +57,22 @@ export class EditorComponent {
   }
 
   submit(){
-    if (this.curCode == ""){
+    //Cache the result, it could change during submission
+    let buf: string = this.code;
+
+    if (buf == this.last_submission){
       this.toasts.s_i("No change to packagebuild, skipped submission");
       return undefined;
     }
 
+
     return this.branch.checkauth()
       .pipe(switchMap(auth => {
         if (auth){
-          return this.branch.submit(this.curCode).pipe(
+          return this.branch.submit(buf).pipe(
             map(res => {
-              if (res){
-                this.curCode = "";
-              }
+              if (res)
+                this.last_submission = buf;
               return res;
             }))
         } else {
@@ -113,23 +120,6 @@ export class EditorComponent {
 
   ngOnDestroy(){
     this.events_subscription.unsubscribe();
-  }
-
-  model: CodeModel = {
-    language: 'shell',
-    uri: 'package.bpb',
-    value: '',
-  };
-
-  options = {
-    contextmenu: true,
-    minimap: {
-      enabled: true,
-    },
-  };
-
-  onCodeChanged(value: string) {
-    this.curCode = value;
   }
 
   @HostListener('window:keydown', ['$event'])

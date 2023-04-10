@@ -23,9 +23,9 @@ import { CreateuserModalComponent } from './modals/createuser-modal/createuser-m
 import { NotFoundComponent } from './not-found/not-found.component';
 import { MarkdownModule } from 'ngx-markdown';
 import { WikiComponent } from './wiki/wiki.component';
-import { CodeEditorModule } from '@ngstack/code-editor';
 import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.component';
 import { PkgBuildModalComponent } from './modals/pkg-build-modal/pkg-build-modal.component';
+
 
 @NgModule({
   declarations: [
@@ -67,10 +67,6 @@ import { PkgBuildModalComponent } from './modals/pkg-build-modal/pkg-build-modal
     ]),
     NgbModule,
     ToastsContainer,
-    CodeEditorModule.forRoot({
-      baseUrl: 'assets/monaco',
-      typingsWorkerUrl: 'assets/workers/typings-worker.js'
-    }),
     MarkdownModule.forRoot()
   ],
   providers: [CookieService],
