@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { SearchService } from 'src/app/shared/search/search.service';
 
@@ -11,6 +11,7 @@ export class SearchControlsComponent {
 
   public active: boolean = false;
   public term: string = "";
+  @ViewChild('input', { static: false }) input: ElementRef | undefined;
 
   constructor(private router: Router, private searchService: SearchService){
 
@@ -22,6 +23,16 @@ export class SearchControlsComponent {
 
   shouldShow(){
     return this.router.url.includes("packages") || this.router.url.includes("packagebuilds");
+  }
+
+  icon_pressed(){
+    this.active = true;
+    this.searchService.push(this.term);
+
+    setTimeout(()=>{ // this will make the execution after the above boolean has changed
+      if (this.input)
+        this.input.nativeElement.focus();
+    },0);
   }
 
   update(event: any){

@@ -1,5 +1,5 @@
 
 <div *ngIf="this.shouldShow()" fxLayout="row">
-    <input type="text" class="form-control" style="margin-right: 10px;" *ngIf="this.active" [(ngModel)]="term" (input)="update($event)">
-    <button class="btn btn-primary" (click)="toggle()"><ng-icon name="bootstrapSearch"></ng-icon></button>
+    <input #input type="text" class="form-control" style="margin-right: 10px;" *ngIf="this.active" [(ngModel)]="term" (input)="update($event)">
+    <button class="btn btn-primary" (click)="icon_pressed()"><ng-icon name="bootstrapSearch"></ng-icon></button>
 </div>
