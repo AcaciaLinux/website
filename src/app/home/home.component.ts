@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { ConfigService } from '../shared/config/config.service';
 
 @Component({
@@ -7,11 +8,11 @@ import { ConfigService } from '../shared/config/config.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  constructor(public config: ConfigService){
+  constructor(public config: ConfigService, private router: Router){
 
   }
 
-  goToGitHub(){
-    window.location.href = "https://github.com/AcaciaLinux";
+  getStarted(){
+    this.router.navigate(["wiki", "getting_started"]);
   }
 }
