@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostListener, Renderer2, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { ConfigService } from './shared/config/config.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,7 @@ export class AppComponent {
   public navHeight = 0;
   @ViewChild('navbar', { static: false }) navbar: ElementRef | undefined;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, public config: ConfigService) {}
 
   ngOnInit() {
     this.router.events.subscribe((event) => {

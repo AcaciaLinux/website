@@ -26,7 +26,7 @@ import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.comp
 import { PkgBuildModalComponent } from './modals/pkg-build-modal/pkg-build-modal.component';
 import { SearchControlsComponent } from './controls/search-controls/search-controls.component';
 import { NgIconsModule } from '@ng-icons/core';
-import { bootstrapSearch, bootstrapPerson, bootstrapBoxArrowRight } from '@ng-icons/bootstrap-icons';
+import { bootstrapSearch, bootstrapPerson, bootstrapBoxArrowRight, bootstrapChevronRight } from '@ng-icons/bootstrap-icons';
 import { FormsModule } from '@angular/forms';
 import { UserMgrComponent } from './admin/user-mgr/user-mgr.component';
 
@@ -57,7 +57,7 @@ import { UserMgrComponent } from './admin/user-mgr/user-mgr.component';
     HttpClientModule,
     FlexLayoutModule,
     FormsModule,
-    NgIconsModule.withIcons({ bootstrapSearch, bootstrapPerson, bootstrapBoxArrowRight }),
+    NgIconsModule.withIcons({ bootstrapSearch, bootstrapPerson, bootstrapBoxArrowRight, bootstrapChevronRight }),
     RouterModule.forRoot([
       { path: '', redirectTo: 'home', pathMatch: 'full'},
       { path: 'home', component: HomeComponent },

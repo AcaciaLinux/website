@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { ConfigService } from 'src/app/shared/config/config.service';
 import { SearchService } from 'src/app/shared/search/search.service';
 
 @Component({
@@ -8,17 +9,11 @@ import { SearchService } from 'src/app/shared/search/search.service';
   styleUrls: ['./search-controls.component.css']
 })
 export class SearchControlsComponent {
-
-  public active: boolean = false;
   public term: string = "";
   @ViewChild('input', { static: false }) input: ElementRef | undefined;
 
-  constructor(private router: Router, private searchService: SearchService){
+  constructor(private router: Router, private searchService: SearchService, public config: ConfigService){
 
-  }
-
-  toggle(){
-    this.active = !this.active;
   }
 
   shouldShow(){
@@ -26,13 +21,15 @@ export class SearchControlsComponent {
   }
 
   icon_pressed(){
-    this.active = true;
-    this.searchService.push(this.term);
+    this.config.search_open = !this.config.search_open;
 
-    setTimeout(()=>{ // this will make the execution after the above boolean has changed
-      if (this.input)
-        this.input.nativeElement.focus();
-    },0);
+    if (this.config.search_open){
+      this.searchService.push(this.term);
+      setTimeout(()=>{ // this will make the execution after the above boolean has changed
+        if (this.input)
+          this.input.nativeElement.focus();
+      },0);
+    }
   }
 
   update(event: any){
