@@ -1,0 +1,27 @@
+.home-main{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+img{
+    object-fit: contain;
+    max-height: 70%;
+    max-width: 90%;
+}
+
+#img-container{
+    height: 80%;
+    flex: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#rest-container{
+    height: 100%;
+    flex: 1;
+    text-align: center;
+}
+
