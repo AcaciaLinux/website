@@ -4,7 +4,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AdminComponent } from './admin/admin.component';
 import { RouterModule } from '@angular/router';
 import { PackagesComponent } from './packages/packages.component';
 import { PackagebuildsComponent } from './packagebuilds/packagebuilds.component';
@@ -29,12 +28,12 @@ import { SearchControlsComponent } from './controls/search-controls/search-contr
 import { NgIconsModule } from '@ng-icons/core';
 import { bootstrapSearch } from '@ng-icons/bootstrap-icons';
 import { FormsModule } from '@angular/forms';
+import { UserMgrComponent } from './admin/user-mgr/user-mgr.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    AdminComponent,
     PackagesComponent,
     PackagebuildsComponent,
     DownloadsComponent,
@@ -50,7 +49,8 @@ import { FormsModule } from '@angular/forms';
     WikiComponent,
     ConfirmModalComponent,
     PkgBuildModalComponent,
-    SearchControlsComponent
+    SearchControlsComponent,
+    UserMgrComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +67,7 @@ import { FormsModule } from '@angular/forms';
       { path: 'packages', component: PackagesComponent },
       { path: 'packagebuilds', component: PackagebuildsComponent },
       { path: 'downloads', component: DownloadsComponent },
-      { path: 'admin', component: AdminComponent },
+      { path: 'admin/users', component: UserMgrComponent },
       { path: 'admin/jobs', component: BuildJobsComponent },
       { path: 'editor/:pkgbuild', loadChildren: () => import('./editor/editor.module').then(m => m.EditorModule) },
       { path: '**', component: NotFoundComponent, pathMatch: 'full' }
