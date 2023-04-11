@@ -1,30 +1,39 @@
 
-<nav #navbar id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
-	<div class="container-fluid">
-		<button class="navbar-toggler" type="button" aria-controls="navbar-alt-markup" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNav()">
-			<span class="navbar-toggler-icon"></span>
-		</button>
+<nav #navbar id="navbar" class="navbar navbar-dark bg-dark navbar-expand-md">
+    <div class="nav-container">
+        <div class="pd_lr">
+            <button class="navbar-toggler" type="button" aria-controls="navbar-alt-markup" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNav()">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
 
-		<a fxHide.lt-sm class="navbar-brand" href="">AcaciaLinux</a>
+        <a fxHide.lt-sm class="navbar-brand" href="">AcaciaLinux</a>
 
-		<div #navbar_alt_markup class="collapse navbar-collapse" id="navbar-alt-markup">
-			<div class="navbar-nav">
-				<a class="nav-link fw-bold" routerLinkActive="active" routerLink="home">Home</a>
-				<a class="nav-link fw-bold" routerLinkActive="active" routerLink="/downloads">Downloads</a>
-				<a class="nav-link fw-bold" routerLinkActive="active" routerLink="/wiki">Wiki</a>
-				<a class="nav-link fw-bold" routerLinkActive="active" routerLink="/packages">Packages</a>
-				<a class="nav-link fw-bold" routerLinkActive="active" routerLink="/packagebuilds">Packagebuilds</a>
-				<a class="nav-link fw-bold" routerLinkActive="active" routerLink="/admin">Admin</a>
-				<a class="nav-link" routerLinkActive="active" routerLink="/admin/jobs">Build Jobs</a>
-				<a class="nav-link fw-bold" href="https://github.com/AcaciaLinux/">GitHub</a>
-			</div>
-		</div>
-		<app-controls></app-controls>
-	</div>
+        <div #navbar_alt_markup class="collapse navbar-collapse" id="navbar-alt-markup">
+            <div class="navbar-nav">
+                <a class="nav-link fw-bold" routerLinkActive="active" routerLink="home">Home</a>
+                <a class="nav-link fw-bold" routerLinkActive="active" routerLink="/downloads">Downloads</a>
+                <a class="nav-link fw-bold" routerLinkActive="active" routerLink="/wiki">Wiki</a>
+                <a class="nav-link fw-bold" routerLinkActive="active" routerLink="/packages">Packages</a>
+                <li ngbDropdown placement="bottom-end">
+                    <a class="nav-link" class="nav-link fw-bold" tabindex="0" ngbDropdownToggle id="adminDropdown" role="button">Admin</a>
+                    <div ngbDropdownMenu aria-labelledby="adminDropdown" class="dropdown-menu dropdown-menu-dark pd_lr">
+                        <a ngbDropdownItem class="nav-link" routerLinkActive="active" routerLink="/admin/users">Users</a>
+                        <a ngbDropdownItem class="nav-link" routerLinkActive="active" routerLink="/packagebuilds">Packagebuilds</a>
+                        <a ngbDropdownItem class="nav-link" routerLinkActive="active" routerLink="/admin/jobs">Build Jobs</a>
+                    </div>
+                </li>
+                <a class="nav-link fw-bold" href="https://github.com/AcaciaLinux/">GitHub</a>
+
+            </div>
+        </div>
+
+        <app-controls class="nav-item pd_r"></app-controls>
+    </div>
 
 </nav>
 
 <div [style.padding-top.px]="navbar.offsetHeight" [style.height.px]="contentHeight">
-	<router-outlet></router-outlet>
-	<app-toasts aria-live="polite" aria-atomic="true"></app-toasts>
+    <router-outlet></router-outlet>
+    <app-toasts aria-live="polite" aria-atomic="true"></app-toasts>
 </div>

@@ -1,7 +1,26 @@
 
 #navbar{
-	position: fixed;
-	width: 100%;
-	top: 0px;
-	z-index: 2;
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    z-index: 2;
+}
+
+.nav-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.pd_lr{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.pd_l{
+    padding-left: 10px;
+}
+
+.pd_r{
+    padding-right: 10px;
 }
