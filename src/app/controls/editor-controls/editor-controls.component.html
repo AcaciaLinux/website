@@ -1,18 +1,20 @@
 <div *ngIf="this.shouldShow('editor')">
 	<app-confirm-modal #md_delete></app-confirm-modal>
 	<app-pkg-build-modal #md_pkgbuild></app-pkg-build-modal>
-	<div ngbDropdown class="d-inline-block">
+
+	<li class="nav-item" ngbDropdown display="dynamic" placement="bottom-end">
 		<button type="button" class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>
-			Actions
+			<ng-icon name="bootstrapTools"></ng-icon>
 		</button>
-		<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-			<button ngbDropdownItem (click)="do_submit()">Submit</button>
+		<div ngbDropdownMenu aria-labelledby="navbarDropdown3" class="dropdown-menu">
+			<button ngbDropdownItem (click)="do_submit()"><ng-icon name="bootstrapBoxArrowUpRight"></ng-icon>&nbsp; Submit</button>
 			<div class="dropdown-divider"></div>
-			<button ngbDropdownItem (click)="do_releasebuild()">Releasebuild</button>
-			<button ngbDropdownItem (click)="do_crossbuild()">Crossbuild</button>
+			<button ngbDropdownItem (click)="do_releasebuild()"><ng-icon name="bootstrapHammer"></ng-icon>  Releasebuild</button>
+			<button ngbDropdownItem (click)="do_crossbuild()"><ng-icon name="bootstrapHammer"></ng-icon>&nbsp; Crossbuild</button>
 			<div class="dropdown-divider"></div>
-			<button ngbDropdownItem (click)="do_new_pkgbuild(md_pkgbuild)">New Packagebuild</button>
-			<button ngbDropdownItem (click)="do_delete(md_delete)">Delete</button>
+			<button ngbDropdownItem (click)="do_new_pkgbuild(md_pkgbuild)"><ng-icon name="bootstrapPlusSquare"></ng-icon>&nbsp; Create Packagebuild</button>
+			<div class="dropdown-divider"></div>
+			<button ngbDropdownItem (click)="do_delete(md_delete)"><ng-icon name="bootstrapTrash"></ng-icon>&nbsp; Delete</button>
 		</div>
-	</div>
+	</li>
 </div>
