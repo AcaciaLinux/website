@@ -7,7 +7,8 @@
             </button>
         </div>
 
-        <a class="navbar-brand" href="" [hidden]="config.search_open">AcaciaLinux</a>
+        <a class="navbar-brand" href="" fxHide.lt-lg>AcaciaLinux</a>
+        <a class="navbar-brand" href="" fxHide.gt-md [hidden]="config.search_open || config.nav_open">AcaciaLinux</a>
 
         <div #navbar_alt_markup class="collapse navbar-collapse" id="navbar-alt-markup">
             <div class="navbar-nav">
