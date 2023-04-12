@@ -1,6 +1,6 @@
 
 <div *ngIf="this.shouldShow()" fxLayout="row">
-    <input #input type="text" class="form-control" style="margin-right: 10px;" *ngIf="config.search_open" [(ngModel)]="term" (input)="update($event)">
+    <input #input type="search" class="form-control" style="margin-right: 10px;" *ngIf="config.search_open" [(ngModel)]="term" (input)="update($event)">
     <button class="btn btn-primary" (click)="icon_pressed()">
         <ng-icon *ngIf="!config.search_open" name="bootstrapSearch"></ng-icon>
         <ng-icon *ngIf="config.search_open" name="bootstrapChevronRight"></ng-icon>

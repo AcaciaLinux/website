@@ -29,6 +29,8 @@ export class SearchControlsComponent {
         if (this.input)
           this.input.nativeElement.focus();
       },0);
+    } else {
+      this.searchService.push("");
     }
   }
 

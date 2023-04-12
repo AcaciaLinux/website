@@ -19,13 +19,20 @@ export class AppComponent {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         document.getElementById("navbar-alt-markup")?.classList.add("collapse");
+        this.config.nav_open = false;
       }
     });
     this.onResize();
   }
 
   toggleNav() {
-    document.getElementById("navbar-alt-markup")?.classList.toggle("collapse");
+    this.config.nav_open = !this.config.nav_open;
+
+    if (this.config.nav_open){
+      document.getElementById("navbar-alt-markup")?.classList.remove("collapse");
+    } else {
+      document.getElementById("navbar-alt-markup")?.classList.add("collapse");
+    }
   }
 
   @HostListener('window:resize', ['$event'])

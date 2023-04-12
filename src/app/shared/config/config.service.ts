@@ -17,6 +17,7 @@ export class ConfigService {
   public authKey: string = "";
   public username: string = "";
   public search_open: boolean = false;
+  public nav_open: boolean = false;
 
   constructor(@Inject(PLATFORM_ID) private platformId: object) {
     if (isPlatformBrowser(this.platformId)){
