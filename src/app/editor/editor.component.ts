@@ -5,6 +5,7 @@ import { map, of, Subscription, switchMap } from 'rxjs';
 import { BranchResponse, BranchService } from '../shared/branch/branch.service';
 import { EventService, EventType } from '../shared/event/event.service';
 import { ToastService } from '../toasts-container/toast-service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-editor',
@@ -21,9 +22,10 @@ export class EditorComponent {
   public editorOptions = {theme: 'light', language: 'shell'};
   public code: string= "löajsnglaksng";
 
-  constructor(private route: ActivatedRoute, private location: Location, public branch: BranchService, private events: EventService, private toasts: ToastService) {
+  constructor(private route: ActivatedRoute, private location: Location, public branch: BranchService, private events: EventService, private toasts: ToastService, private title: Title) {
     this.route.params.subscribe(args => {
       this.cur_pkgbuild_name = args["pkgbuild"];
+      this.title.setTitle(this.cur_pkgbuild_name + " - Editor");
       this.branch
         .request("packagebuild&pkgname=" + args["pkgbuild"])
         .pipe(map<any, BranchResponse>(v => v))

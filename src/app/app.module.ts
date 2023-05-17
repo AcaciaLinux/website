@@ -29,7 +29,7 @@ import { NgIconsModule } from '@ng-icons/core';
 import { bootstrapSearch, bootstrapPerson, bootstrapBoxArrowRight, bootstrapChevronRight, bootstrapTools, bootstrapHammer, bootstrapTrash, bootstrapPlusSquare, bootstrapBoxArrowUpRight } from '@ng-icons/bootstrap-icons';
 import { FormsModule } from '@angular/forms';
 import { UserMgrComponent } from './admin/user-mgr/user-mgr.component';
-
+import { ConfigService, PAGE_TITLE } from './shared/config/config.service';
 
 @NgModule({
   declarations: [
@@ -59,16 +59,18 @@ import { UserMgrComponent } from './admin/user-mgr/user-mgr.component';
     FormsModule,
     NgIconsModule.withIcons({ bootstrapSearch, bootstrapPerson, bootstrapBoxArrowRight, bootstrapChevronRight, bootstrapTools, bootstrapHammer, bootstrapTrash, bootstrapPlusSquare, bootstrapBoxArrowUpRight }),
     RouterModule.forRoot([
-      { path: '', redirectTo: 'home', pathMatch: 'full'},
-      { path: 'home', component: HomeComponent },
-      { path: 'wiki', children: [
-        { path: '**', component: WikiComponent }
-      ]},
-      { path: 'packages', component: PackagesComponent },
-      { path: 'packagebuilds', component: PackagebuildsComponent },
-      { path: 'downloads', component: DownloadsComponent },
-      { path: 'admin/users', component: UserMgrComponent },
-      { path: 'admin/jobs', component: BuildJobsComponent },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: 'home', component: HomeComponent, title: PAGE_TITLE },
+      {
+        path: 'wiki', children: [
+          { path: '**', component: WikiComponent }
+        ]
+      },
+      { path: 'packages', component: PackagesComponent, title: "Packages - " + PAGE_TITLE },
+      { path: 'packagebuilds', component: PackagebuildsComponent, title: "Packagebuilds - " + PAGE_TITLE },
+      { path: 'downloads', component: DownloadsComponent, title: "Downloads - " + PAGE_TITLE },
+      { path: 'admin/users', component: UserMgrComponent, title: "Admin/Users - " + PAGE_TITLE },
+      { path: 'admin/jobs', component: BuildJobsComponent, title: "Jobs - " + PAGE_TITLE },
       { path: 'editor/:pkgbuild', loadChildren: () => import('./editor/editor.module').then(m => m.EditorModule) },
       { path: '**', component: NotFoundComponent, pathMatch: 'full' }
     ]),

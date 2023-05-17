@@ -1,6 +1,8 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 
+export const PAGE_TITLE = "AcaciaLinux";
+
 @Injectable({
   providedIn: 'root'
 })
