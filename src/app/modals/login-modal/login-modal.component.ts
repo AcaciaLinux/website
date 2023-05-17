@@ -14,18 +14,18 @@ export class LoginModalComponent {
   public closeModal: string = "Close Modal!";
   @ViewChild('btnLogin', { static: false }) btnLogin: ElementRef<HTMLButtonElement> | undefined;
 
-  constructor(private modalService: NgbModal, public branchService: BranchService, private toasts: ToastService) {}
+  constructor(private modalService: NgbModal, public branchService: BranchService, private toasts: ToastService) { }
 
-  public show(modalData: any){
-    this.modalService.open(modalData, {ariaLabelledBy: 'modal-basic-title'});
+  public show(modalData: any) {
+    this.modalService.open(modalData, { ariaLabelledBy: 'modal-basic-title' });
   }
 
   //Calls BranchService::authenticate and dismisses the dialog
-  authenticate(username: string, password: string){
+  authenticate(username: string, password: string) {
     //Just let the call go, subscribe it but do nothing...
     this.branchService.authenticate(username, password).subscribe(
       res => {
-        if (res == ""){
+        if (res == "") {
           this.toasts.s_ok("Logged in");
           //And dismiss the dialog
           this.modalService.dismissAll();
@@ -37,9 +37,9 @@ export class LoginModalComponent {
   }
 
   //Calls BranchService::logoff() to log off
-  logoff(){
+  logoff() {
     this.branchService.checkauth().subscribe(authenticated => {
-      if (authenticated){
+      if (authenticated) {
         this.branchService.logoff();
       }
     });

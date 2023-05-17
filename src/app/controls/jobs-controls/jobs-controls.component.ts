@@ -10,15 +10,15 @@ import { EventService, EventType } from 'src/app/shared/event/event.service';
 })
 export class JobsControlsComponent {
 
-  constructor(private router: Router, private branch: BranchService, private events: EventService){
+  constructor(private router: Router, private branch: BranchService, private events: EventService) {
 
   }
 
-  do_clear_completed(){
+  do_clear_completed() {
     this.branch.checkauth().subscribe(auth => {
-      if (auth){
-        this.branch.clearcompletedjobs().subscribe(ok =>{
-          if (ok){
+      if (auth) {
+        this.branch.clearcompletedjobs().subscribe(ok => {
+          if (ok) {
             this.events.push(EventType.DATA_REFRESH);
           }
         });
@@ -26,11 +26,11 @@ export class JobsControlsComponent {
     });
   }
 
-  do_cancel_queue(){
+  do_cancel_queue() {
     this.branch.checkauth().subscribe(auth => {
-      if (auth){
-        this.branch.cancelqueuedjobs().subscribe(ok =>{
-          if (ok){
+      if (auth) {
+        this.branch.cancelqueuedjobs().subscribe(ok => {
+          if (ok) {
             this.events.push(EventType.DATA_REFRESH);
           }
         });
@@ -38,7 +38,7 @@ export class JobsControlsComponent {
     });
   }
 
-  shouldShow(){
+  shouldShow() {
     return this.router.url.includes("jobs") && this.branch.config.authKey != '';
   }
 

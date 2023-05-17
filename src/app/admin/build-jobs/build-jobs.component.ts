@@ -16,9 +16,9 @@ export class BuildJobsComponent {
   public completed_jobs?: Job[];
   private subscription: Subscription;
 
-  constructor(public branch: BranchService, private events: EventService){
+  constructor(public branch: BranchService, private events: EventService) {
     this.subscription = this.events.emitter.subscribe(type => {
-      if (type = EventType.DATA_REFRESH){
+      if (type = EventType.DATA_REFRESH) {
         this.updateData();
       }
     });
@@ -29,7 +29,7 @@ export class BuildJobsComponent {
     this.subscription.unsubscribe();
   }
 
-  updateData(){
+  updateData() {
     console.debug("[BUILDJOBS] Refreshing data...");
 
     this.branch.request("joblist")

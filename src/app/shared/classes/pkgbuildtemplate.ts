@@ -1,9 +1,9 @@
-export class TemplateResponse{
+export class TemplateResponse {
 	public version: string = "";
 	public templates: PkgBuildTemplate[] = [];
 }
 
-export class PkgBuildTemplate{
+export class PkgBuildTemplate {
 	public name: string = "";
 	public url: string = "";
 }

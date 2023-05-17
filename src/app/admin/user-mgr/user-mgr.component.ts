@@ -7,7 +7,7 @@ import { BranchService } from 'src/app/shared/branch/branch.service';
   styleUrls: ['./user-mgr.component.css']
 })
 export class UserMgrComponent {
-  constructor(public branch: BranchService){
+  constructor(public branch: BranchService) {
 
   }
 }

@@ -1,7 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 
-export const PAGE_TITLE = "AcaciaLinux";
+export const PAGE_TITLE = "AcaciaLinux staging";
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class ConfigService {
   public nav_open: boolean = false;
 
   constructor(@Inject(PLATFORM_ID) private platformId: object) {
-    if (isPlatformBrowser(this.platformId)){
+    if (isPlatformBrowser(this.platformId)) {
       this.checkForDarkMode();
     }
   }
@@ -54,7 +54,7 @@ export class ConfigService {
       return this.config.wikiURL + "/";
   }
 
-  isDarkMode(): boolean{
+  isDarkMode(): boolean {
     return this.config.isDarkMode;
   }
 }

@@ -4,18 +4,18 @@ import { map, Subscription } from 'rxjs';
 import { ConfigService } from '../shared/config/config.service';
 import { EventService, EventType } from '../shared/event/event.service';
 
-class Artifact{
+class Artifact {
   public name: string = "";
   public desc: string = "";
   public url: string = "";
 }
 
-class Category{
+class Category {
   public name: string = "";
   public artifacts: Artifact[] = new Array();
 }
 
-class Artifacts{
+class Artifacts {
   public version: string = "";
   public categories: Category[] = new Array();
 }
@@ -30,9 +30,9 @@ export class DownloadsComponent {
   public artifacts?: Artifacts;
   private subscription: Subscription;
 
-  constructor(private config: ConfigService, private http: HttpClient, private events: EventService){
+  constructor(private config: ConfigService, private http: HttpClient, private events: EventService) {
     this.subscription = this.events.emitter.subscribe(event => {
-      if (event == EventType.DATA_REFRESH){
+      if (event == EventType.DATA_REFRESH) {
         this.updateData();
       }
     });
@@ -43,7 +43,7 @@ export class DownloadsComponent {
     this.subscription.unsubscribe();
   }
 
-  updateData(){
+  updateData() {
     this.http.get(this.config.getArtifactsURL())
       .pipe(map<any, Artifacts>(data => data))
       .subscribe(

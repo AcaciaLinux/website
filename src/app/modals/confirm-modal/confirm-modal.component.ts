@@ -13,7 +13,7 @@ export class ConfirmModalComponent {
   public body: string = "";
   @ViewChild('modalData', { static: false }) modalData: ElementRef | undefined;
 
-  constructor(private modalService: NgbModal, private events: EventService){
+  constructor(private modalService: NgbModal, private events: EventService) {
 
   }
 

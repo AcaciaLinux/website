@@ -1,4 +1,3 @@
-
 <table class="table table-hover table-bordered al_th" style="position: sticky; top: 0;">
 	<thead class="al_thead">
 		<tr>
@@ -13,10 +12,12 @@
 
 			<!-- If the package is built -->
 			<td *ngIf="pkgIsBuilt(pkgbuild)" class="al_td al_nowrap">{{ getVersionByPkgName(pkgbuild) }}</td>
-			<td *ngIf="pkgIsBuilt(pkgbuild)" class="al_td al_center al_nowrap">{{ getRelVersionByPkgName(pkgbuild) }}</td>
+			<td *ngIf="pkgIsBuilt(pkgbuild)" class="al_td al_center al_nowrap">{{ getRelVersionByPkgName(pkgbuild) }}
+			</td>
 
 			<!-- Else span over 2 columns and inform the user -->
-			<td *ngIf="!pkgIsBuilt(pkgbuild)" class="al_td al_nowrap al_center" colspan="2">{{ getVersionByPkgName(pkgbuild) }}</td>
+			<td *ngIf="!pkgIsBuilt(pkgbuild)" class="al_td al_nowrap al_center" colspan="2">{{
+				getVersionByPkgName(pkgbuild) }}</td>
 		</tr>
 	</tbody>
 </table>

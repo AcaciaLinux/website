@@ -14,22 +14,22 @@ export class CreateuserModalComponent {
   public closeModal: string = "Close Modal!";
   @ViewChild('btnLogin', { static: false }) btnLogin: ElementRef<HTMLButtonElement> | undefined;
 
-  constructor(private modalService: NgbModal, public branchService: BranchService, private toasts: ToastService) {}
+  constructor(private modalService: NgbModal, public branchService: BranchService, private toasts: ToastService) { }
 
-  public show(modalData: any){
-    this.modalService.open(modalData, {ariaLabelledBy: 'modal-basic-title'});
+  public show(modalData: any) {
+    this.modalService.open(modalData, { ariaLabelledBy: 'modal-basic-title' });
   }
 
   //Calls BranchService::creatuser and dismisses the dialog
-  adduser(username: string, password: string, passwordrepeat: string){
-    if (password != passwordrepeat){
+  adduser(username: string, password: string, passwordrepeat: string) {
+    if (password != passwordrepeat) {
       this.toasts.s_err("Passwords need to match!");
       return;
     }
 
     this.branchService.createuser(username, password).subscribe(
       res => {
-        if (res == ""){
+        if (res == "") {
           this.toasts.s_ok("Created user " + username);
 
           //Dismiss the dialog

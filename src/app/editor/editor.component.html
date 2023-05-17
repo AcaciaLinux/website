@@ -1,18 +1,6 @@
-
 <div id="editor_body" *ngIf="code != ''" style="height: 100%;">
 	<ngx-monaco-editor [options]="editorOptions" [(ngModel)]="code" style="height: 100%;"></ngx-monaco-editor>
 </div>
-
-<!--<div id="editor_body" *ngIf="model.value != ''" style="height: 100%;">
-	<ngs-code-editor
-	[theme]="theme"
-	[codeModel]="model"
-	[options]="options"
-	(valueChanged)="onCodeChanged($event)"
-	style="height: 100%;"
-	>
-	</ngs-code-editor>
-</div>-->
 <div *ngIf="code == ''">
 	<h1>Fetching Packagebuild...</h1>
 </div>

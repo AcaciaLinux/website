@@ -1,4 +1,4 @@
-export class Package{
+export class Package {
 	public name: string = ""
 	public real_version: number = 0
 	public version: string = ""

@@ -8,11 +8,11 @@ import { ConfigService } from '../shared/config/config.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  constructor(public config: ConfigService, private router: Router){
+  constructor(public config: ConfigService, private router: Router) {
 
   }
 
-  getStarted(){
+  getStarted() {
     this.router.navigate(["wiki", "getting_started"]);
   }
 }

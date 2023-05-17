@@ -6,18 +6,24 @@
 		<div class="modal-body">
 			<form>
 				<p style="margin-left: 1px;">Username</p>
-				<input #username class="form-control" style="margin-left: 1px;" type="email" id="username" title="Username">
+				<input #username class="form-control" style="margin-left: 1px;" type="email" id="username"
+					title="Username">
 				<p style="margin-left: 1px; margin-top: 10px;">Password</p>
-				<input #password class="form-control" style="margin-left: 1px;" type="password" id="password" title="Password">
+				<input #password class="form-control" style="margin-left: 1px;" type="password" id="password"
+					title="Password">
 				<p style="margin-left: 1px; margin-top: 10px;">Password repeat</p>
-				<input #passwordrepeat class="form-control" style="margin-left: 1px;" type="password" id="passwordrepeat" title="Password repeat">
+				<input #passwordrepeat class="form-control" style="margin-left: 1px;" type="password"
+					id="passwordrepeat" title="Password repeat">
 				<br>
 			</form>
 		</div>
 		<div class="modal-footer">
 			<button type="button" class="btn btn-secondary" (click)="modal.close('dismiss')">Dismiss</button>
-			<button type="button" class="btn btn-primary" (click)="this.adduser(username.value, password.value, passwordrepeat.value)">Submit</button>
+			<button type="button" class="btn btn-primary"
+				(click)="this.adduser(username.value, password.value, passwordrepeat.value)">Submit</button>
 		</div>
 	</ng-template>
 </div>
-<button class="btn btn-primary" (click)="this.show(modalData)" [disabled]="this.branchService.config.authKey == '' || this.branchService.config.username != 'root'">Create new user</button>
+<button class="btn btn-primary" (click)="this.show(modalData)"
+	[disabled]="this.branchService.config.authKey == '' || this.branchService.config.username != 'root'">Create new
+	user</button>

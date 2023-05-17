@@ -1,8 +1,8 @@
-
 <nav #navbar id="navbar" class="navbar navbar-dark bg-dark navbar-expand-md">
     <div class="nav-container">
         <div class="pd_lr">
-            <button class="navbar-toggler" type="button" aria-controls="navbar-alt-markup" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNav()">
+            <button class="navbar-toggler" type="button" aria-controls="navbar-alt-markup" aria-expanded="false"
+                aria-label="Toggle navigation" (click)="toggleNav()">
                 <span class="navbar-toggler-icon"></span>
             </button>
         </div>
@@ -17,11 +17,15 @@
                 <a class="nav-link fw-bold" routerLinkActive="active" routerLink="/wiki">Wiki</a>
                 <a class="nav-link fw-bold" routerLinkActive="active" routerLink="/packages">Packages</a>
                 <li ngbDropdown placement="bottom-end">
-                    <a class="nav-link" class="nav-link fw-bold" tabindex="0" ngbDropdownToggle id="adminDropdown" role="button">Admin</a>
+                    <a class="nav-link" class="nav-link fw-bold" tabindex="0" ngbDropdownToggle id="adminDropdown"
+                        role="button">Admin</a>
                     <div ngbDropdownMenu aria-labelledby="adminDropdown" class="dropdown-menu dropdown-menu-dark pd_lr">
-                        <a ngbDropdownItem class="nav-link" routerLinkActive="active" routerLink="/admin/users">Users</a>
-                        <a ngbDropdownItem class="nav-link" routerLinkActive="active" routerLink="/packagebuilds">Packagebuilds</a>
-                        <a ngbDropdownItem class="nav-link" routerLinkActive="active" routerLink="/admin/jobs">Build Jobs</a>
+                        <a ngbDropdownItem class="nav-link" routerLinkActive="active"
+                            routerLink="/admin/users">Users</a>
+                        <a ngbDropdownItem class="nav-link" routerLinkActive="active"
+                            routerLink="/packagebuilds">Packagebuilds</a>
+                        <a ngbDropdownItem class="nav-link" routerLinkActive="active" routerLink="/admin/jobs">Build
+                            Jobs</a>
                     </div>
                 </li>
                 <a class="nav-link fw-bold" href="https://github.com/AcaciaLinux/">GitHub</a>

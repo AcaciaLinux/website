@@ -10,7 +10,7 @@
 	</thead>
 	<tbody *ngIf="packages !== undefined" class="al_tbody">
 		<tr *ngFor="let package of packages">
-			<td class="al_td al_nowrap"><a [href]="package.url" >{{ package.name }}</a></td>
+			<td class="al_td al_nowrap"><a [href]="package.url">{{ package.name }}</a></td>
 			<td class="al_td al_nowrap">{{ package.version }}</td>
 			<td class="al_td al_center">{{ package.real_version }}</td>
 			<td fxHide.lt-md class="al_td al_nowrap">{{ package.description }}</td>

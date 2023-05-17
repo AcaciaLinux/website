@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./not-found.component.css']
 })
 export class NotFoundComponent {
-  constructor(public router: Router){
+  constructor(public router: Router) {
 
   }
 }

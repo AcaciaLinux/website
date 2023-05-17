@@ -10,7 +10,7 @@ export class SearchService {
   constructor() {
   }
 
-  public push(term: string){
+  public push(term: string) {
     this.emitter.emit(term);
   }
 

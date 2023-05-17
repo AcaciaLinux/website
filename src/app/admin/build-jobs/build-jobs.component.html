@@ -9,7 +9,9 @@
 	</thead>
 	<tbody class="al_tbody">
 		<tr>
-			<td colspan="4"><h3>Queued Jobs ({{queued_jobs?.length}})</h3></td>
+			<td colspan="4">
+				<h3>Queued Jobs ({{queued_jobs?.length}})</h3>
+			</td>
 		</tr>
 		<tr *ngFor="let job of queued_jobs">
 			<td class="al_td al_nowrap al_center">{{ job.job_name }}</td>
@@ -18,7 +20,9 @@
 			<td class="al_td al_nowrap al_center">{{ job.job_status }}</td>
 		</tr>
 		<tr>
-			<td colspan="4"><h3>Running Jobs ({{running_jobs?.length}})</h3></td>
+			<td colspan="4">
+				<h3>Running Jobs ({{running_jobs?.length}})</h3>
+			</td>
 		</tr>
 		<tr *ngFor="let job of running_jobs" (click)="logViewModal.show(job.job_id);">
 			<td class="al_td al_nowrap al_center">{{ job.job_name }}</td>
@@ -27,7 +31,9 @@
 			<td class="al_td al_nowrap al_center">{{ job.job_status }}</td>
 		</tr>
 		<tr>
-			<td colspan="4"><h3>Completed Jobs ({{completed_jobs?.length}})</h3></td>
+			<td colspan="4">
+				<h3>Completed Jobs ({{completed_jobs?.length}})</h3>
+			</td>
 		</tr>
 		<tr *ngFor="let job of completed_jobs?.slice()?.reverse()" (click)="logViewModal.show(job.job_id);">
 			<td class="al_td al_nowrap al_center">{{ job.job_name }}</td>

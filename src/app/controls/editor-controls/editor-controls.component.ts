@@ -13,18 +13,18 @@ import { EventService, EventType } from 'src/app/shared/event/event.service';
 })
 export class EditorControlsComponent {
 
-  constructor(private router: Router, private events: EventService, private branch: BranchService, private modals: NgbModal){
+  constructor(private router: Router, private events: EventService, private branch: BranchService, private modals: NgbModal) {
   }
 
-  do_submit(){
+  do_submit() {
     this.events.push(EventType.EDITOR_SUBMIT);
   }
 
-  do_releasebuild(){
+  do_releasebuild() {
     this.events.push(EventType.EDITOR_RELEASEBUILD);
   }
 
-  do_crossbuild(){
+  do_crossbuild() {
     this.events.push(EventType.EDITOR_CROSSBUILD);
   }
 
@@ -47,7 +47,7 @@ export class EditorControlsComponent {
     });
   }
 
-  shouldShow(route: string){
+  shouldShow(route: string) {
     return this.router.url.includes(route) && this.branch.config.authKey != '';
   }
 }

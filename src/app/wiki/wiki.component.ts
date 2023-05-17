@@ -14,11 +14,11 @@ export class WikiComponent {
   private listenObj: any;
   public article = "";
 
-  @ViewChild('outlet', {static: false}) private outlet?: MarkdownComponent;
+  @ViewChild('outlet', { static: false }) private outlet?: MarkdownComponent;
 
-  constructor(private renderer: Renderer2, private route: ActivatedRoute, private router: Router, private config: ConfigService){
+  constructor(private renderer: Renderer2, private route: ActivatedRoute, private router: Router, private config: ConfigService) {
     this.routerevents = router.events.subscribe(e => {
-      if (e instanceof NavigationEnd){
+      if (e instanceof NavigationEnd) {
         let url = this.route.snapshot.url;
 
         this.article = this.getMDURL(url.map(m => m.toString()));
@@ -33,8 +33,8 @@ export class WikiComponent {
           const el = (e.target as HTMLElement);
           const linkURL = el.getAttribute && el.getAttribute('href');
 
-          if (linkURL){
-            if (linkURL.startsWith('/')){
+          if (linkURL) {
+            if (linkURL.startsWith('/')) {
               this.router.navigate(("wiki" + linkURL.replaceAll(".md", "")).split('/'));
               e.preventDefault();
             }
@@ -45,16 +45,16 @@ export class WikiComponent {
     }
   }
 
-  getMDURL(url: string[]): string{
+  getMDURL(url: string[]): string {
     // If the url is nothing, return the Home page
-    if (url.length == 0){
+    if (url.length == 0) {
       return this.config.getWikiURL() + "Home.md";
     }
 
     return this.config.getWikiURL() + url.toString().replaceAll(',', '/') + ".md";
   }
 
-  ngOnInit(): void{
+  ngOnInit(): void {
     let url = this.route.snapshot.url;
 
     this.article = this.getMDURL(url.map(m => m.toString()));

@@ -25,7 +25,8 @@
                 <br>
 
                 <p style="margin-left: 1px;">Real version</p>
-                <input #relv class="form-control" style="margin-left: 1px;" type="number" value="0" title="Real Version">
+                <input #relv class="form-control" style="margin-left: 1px;" type="number" value="0"
+                    title="Real Version">
                 <br>
 
                 <p style="margin-left: 1px;">Source</p>
@@ -36,7 +37,8 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" (click)="modal.close(false)">Dismiss</button>
-            <button type="button" class="btn btn-primary" (click)="this.create_pkg_build(modal, template.value, name.value, version.value, desc.value, relv.value, src.value)">Submit</button>
+            <button type="button" class="btn btn-primary"
+                (click)="this.create_pkg_build(modal, template.value, name.value, version.value, desc.value, relv.value, src.value)">Submit</button>
         </div>
     </ng-template>
 </div>

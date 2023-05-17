@@ -13,7 +13,7 @@ export class AppComponent {
   public navHeight = 0;
   @ViewChild('navbar', { static: false }) navbar: ElementRef | undefined;
 
-  constructor(private router: Router, public config: ConfigService) {}
+  constructor(private router: Router, public config: ConfigService) { }
 
   ngOnInit() {
     this.router.events.subscribe((event) => {
@@ -28,7 +28,7 @@ export class AppComponent {
   toggleNav() {
     this.config.nav_open = !this.config.nav_open;
 
-    if (this.config.nav_open){
+    if (this.config.nav_open) {
       document.getElementById("navbar-alt-markup")?.classList.remove("collapse");
     } else {
       document.getElementById("navbar-alt-markup")?.classList.add("collapse");

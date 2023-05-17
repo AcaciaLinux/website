@@ -19,8 +19,8 @@ export class EditorComponent {
   private events_subscription: Subscription;
   private last_submission: string = "";
 
-  public editorOptions = {theme: 'light', language: 'shell'};
-  public code: string= "löajsnglaksng";
+  public editorOptions = { theme: 'light', language: 'shell' };
+  public code: string = "Please wait while the packagebuild is loading...";
 
   constructor(private route: ActivatedRoute, private location: Location, public branch: BranchService, private events: EventService, private toasts: ToastService, private title: Title) {
     this.route.params.subscribe(args => {
@@ -37,32 +37,32 @@ export class EditorComponent {
 
     //Subscribe to the submit event
     this.events_subscription = this.events.emitter.subscribe(val => {
-      if (val == EventType.EDITOR_SUBMIT){
+      if (val == EventType.EDITOR_SUBMIT) {
         let submit_res = this.submit();
-        if (submit_res !== undefined){
+        if (submit_res !== undefined) {
           submit_res.subscribe();
         }
       }
 
-      else if (val == EventType.EDITOR_RELEASEBUILD){
+      else if (val == EventType.EDITOR_RELEASEBUILD) {
         this.releasebuild();
       }
 
-      else if (val == EventType.EDITOR_CROSSBUILD){
+      else if (val == EventType.EDITOR_CROSSBUILD) {
         this.crossbuild();
       }
 
-      else if (val == EventType.EDITOR_DELETE){
+      else if (val == EventType.EDITOR_DELETE) {
         this.delete();
       }
     });
   }
 
-  submit(){
+  submit() {
     //Cache the result, it could change during submission
     let buf: string = this.code;
 
-    if (buf == this.last_submission){
+    if (buf == this.last_submission) {
       this.toasts.s_i("No change to packagebuild, skipped submission");
       return undefined;
     }
@@ -70,7 +70,7 @@ export class EditorComponent {
 
     return this.branch.checkauth()
       .pipe(switchMap(auth => {
-        if (auth){
+        if (auth) {
           return this.branch.submit(buf).pipe(
             map(res => {
               if (res)
@@ -83,52 +83,52 @@ export class EditorComponent {
       }));
   }
 
-  releasebuild(){
+  releasebuild() {
     let submit_res = this.submit();
 
     //If no submission was done, request the build anyway
-    if (submit_res === undefined){
+    if (submit_res === undefined) {
       this.branch.releasebuild(this.cur_pkgbuild_name).subscribe();
     } else {
       submit_res.subscribe(ok => {
-        if (ok){
+        if (ok) {
           this.branch.releasebuild(this.cur_pkgbuild_name).subscribe();
         }
       });
     }
   }
 
-  crossbuild(){
+  crossbuild() {
     let submit_res = this.submit();
 
     //If no submission was done, request the build anyway
-    if (submit_res === undefined){
+    if (submit_res === undefined) {
       this.branch.crossbuild(this.cur_pkgbuild_name).subscribe();
     } else {
       submit_res.subscribe(ok => {
-        if (ok){
+        if (ok) {
           this.branch.crossbuild(this.cur_pkgbuild_name).subscribe();
         }
       });
     }
   }
 
-  delete(){
+  delete() {
     this.branch.deletepkg(this.cur_pkgbuild_name).subscribe(ok => {
       if (ok)
         this.location.back();
     });
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.events_subscription.unsubscribe();
   }
 
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
-      if ((event.metaKey || event.ctrlKey) && event.key === 's') {
-          this.submit();
-          event.preventDefault();
-      }
+    if ((event.metaKey || event.ctrlKey) && event.key === 's') {
+      this.submit();
+      event.preventDefault();
+    }
   }
 }

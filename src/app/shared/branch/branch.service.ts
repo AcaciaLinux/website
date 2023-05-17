@@ -5,7 +5,7 @@ import { interval, map, Observable, Subscription } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastService } from 'src/app/toasts-container/toast-service';
 
-export class BranchResponse{
+export class BranchResponse {
   status: string = ""
   response_code: number = 0;
   payload: any
@@ -21,11 +21,11 @@ export class BranchService {
     const checkauth_timer = interval(60000);
     checkauth_timer.subscribe(_ => this.auto_checkauth());
 
-    if (this.cookies.check("username")){
+    if (this.cookies.check("username")) {
       this.config.username = this.cookies.get("username");
     }
 
-    if (this.cookies.check("authkey")){
+    if (this.cookies.check("authkey")) {
       this.checkauth(this.cookies.get("authkey")).subscribe();
     }
   }
@@ -34,11 +34,11 @@ export class BranchService {
     return this.http.get(this.config.getBranchAPIURL() + "?get=" + get);
   }
 
-  error(action: string, message: string){
+  error(action: string, message: string) {
     console.error("Failed to " + action + ": " + message);
   }
 
-  authenticate(username: string, password: string): Observable<string>{
+  authenticate(username: string, password: string): Observable<string> {
     let req = {
       user: username,
       pass: password
@@ -50,13 +50,13 @@ export class BranchService {
   }
 
   //The method called recurringly to check authentication
-  auto_checkauth(){
-    if (this.config.authKey != ""){
+  auto_checkauth() {
+    if (this.config.authKey != "") {
       this.checkauth().subscribe();
     }
   }
 
-  checkauth(authkey: string = this.config.authKey): Observable<boolean>{
+  checkauth(authkey: string = this.config.authKey): Observable<boolean> {
     let req = {
       authkey: authkey
     };
@@ -66,7 +66,7 @@ export class BranchService {
       .pipe(map(arg => this.checkauthPipe(this, authkey, arg)));
   }
 
-  logoff(){
+  logoff() {
     let req = {
       authkey: this.config.authKey
     };
@@ -74,7 +74,7 @@ export class BranchService {
     return this.http.post(this.config.getBranchAPIURL() + "logoff", req)
       .pipe(map<any, BranchResponse>(data => data))
       .subscribe(val => {
-        if (val.response_code == 200){
+        if (val.response_code == 200) {
           this.config.authKey = "";
           this.config.username = "";
 
@@ -87,7 +87,7 @@ export class BranchService {
       });
   }
 
-  createuser(username: string, password: string): Observable<string>{
+  createuser(username: string, password: string): Observable<string> {
     let req = {
       authkey: this.config.authKey,
       cuser: username,
@@ -99,7 +99,7 @@ export class BranchService {
       .pipe(map(val => this.createuserPipe(val)));
   }
 
-  submit(pkgbuild: string): Observable<boolean>{
+  submit(pkgbuild: string): Observable<boolean> {
     let req = {
       authkey: this.config.authKey,
       packagebuild: pkgbuild
@@ -110,7 +110,7 @@ export class BranchService {
       .pipe(map(val => this.defaultPipe("submit packagebuild", val)));
   }
 
-  releasebuild(pkgname: string): Observable<boolean>{
+  releasebuild(pkgname: string): Observable<boolean> {
     let req = {
       authkey: this.config.authKey,
       pkgname: pkgname
@@ -121,7 +121,7 @@ export class BranchService {
       .pipe(map(val => this.defaultPipe("releasebuild " + pkgname, val)));
   }
 
-  crossbuild(pkgname: string): Observable<boolean>{
+  crossbuild(pkgname: string): Observable<boolean> {
     let req = {
       authkey: this.config.authKey,
       pkgname: pkgname
@@ -132,7 +132,7 @@ export class BranchService {
       .pipe(map(val => this.defaultPipe("crossbuild " + pkgname, val)));
   }
 
-  clearcompletedjobs(): Observable<boolean>{
+  clearcompletedjobs(): Observable<boolean> {
     let req = {
       authkey: this.config.authKey
     }
@@ -142,7 +142,7 @@ export class BranchService {
       .pipe(map(val => this.defaultPipe("clear completed jobs", val)));
   }
 
-  cancelqueuedjobs(): Observable<boolean>{
+  cancelqueuedjobs(): Observable<boolean> {
     let req = {
       authkey: this.config.authKey
     }
@@ -152,7 +152,7 @@ export class BranchService {
       .pipe(map(val => this.defaultPipe("cancel queued jobs", val)));
   }
 
-  deletepkg(pkgname: string): Observable<boolean>{
+  deletepkg(pkgname: string): Observable<boolean> {
     let req = {
       authkey: this.config.authKey,
       pkgname: pkgname
@@ -163,7 +163,7 @@ export class BranchService {
       .pipe(map(val => this.defaultPipe("delete package & packagebuild '" + pkgname + "'", val)));
   }
 
-  getlog(jobID: string): Observable<string[] | undefined>{
+  getlog(jobID: string): Observable<string[] | undefined> {
     let req = {
       authkey: this.config.authKey,
       jobid: jobID
@@ -175,9 +175,9 @@ export class BranchService {
   }
 
   //A pipe function handling the response of an authentication call
-  authPipe(self: BranchService, res: BranchResponse, username: string): string{
+  authPipe(self: BranchService, res: BranchResponse, username: string): string {
     let is_ok = res.response_code == 200;
-    if (is_ok){
+    if (is_ok) {
       self.config.authKey = res.payload;
       self.config.username = username;
       this.cookies.set("username", self.config.username);
@@ -192,8 +192,8 @@ export class BranchService {
     }
   }
 
-  createuserPipe(res: BranchResponse): string{
-    if (res.response_code == 200){
+  createuserPipe(res: BranchResponse): string {
+    if (res.response_code == 200) {
       return "";
     } else {
       return res.payload;
@@ -201,9 +201,9 @@ export class BranchService {
   }
 
   //A pipe function to check if the authkey is still valid
-  checkauthPipe(self: BranchService, key: string, res: BranchResponse): boolean{
+  checkauthPipe(self: BranchService, key: string, res: BranchResponse): boolean {
     let is_ok = res.response_code == 200;
-    if (is_ok){
+    if (is_ok) {
       console.debug("Authkey '" + key + "' is still valid");
       self.config.authKey = key;
     } else {
@@ -211,11 +211,11 @@ export class BranchService {
       self.config.authKey = "";
       self.config.username = "";
 
-      if (this.cookies.check("authkey")){
+      if (this.cookies.check("authkey")) {
         this.cookies.delete("authkey");
       }
 
-      if (this.cookies.check("username")){
+      if (this.cookies.check("username")) {
         this.cookies.delete("username");
       }
     }
@@ -223,9 +223,9 @@ export class BranchService {
   }
 
   //A pipe function to check if the log was retrieved correctly
-  logPipe(res: BranchResponse): string[] | undefined{
+  logPipe(res: BranchResponse): string[] | undefined {
     let is_ok = res.response_code == 200;
-    if (is_ok){
+    if (is_ok) {
       return res.payload;
     } else {
       this.error("retrieve log", res.payload)
@@ -234,9 +234,9 @@ export class BranchService {
   }
 
   //A pipe function to check if the authkey is still valid
-  defaultPipe(action: string, res: BranchResponse): boolean{
+  defaultPipe(action: string, res: BranchResponse): boolean {
     let is_ok = res.response_code == 200;
-    if (is_ok){
+    if (is_ok) {
       console.debug("Action " + action + " ok!");
       this.toasts.s_ok("Action " + action + " ok!");
     } else {

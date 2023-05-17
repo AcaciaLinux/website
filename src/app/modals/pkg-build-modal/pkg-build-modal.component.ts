@@ -23,17 +23,17 @@ export class PkgBuildModalComponent {
       .pipe(map<any, TemplateResponse>(v => v))
       .subscribe(v => {
         this.templates = v.templates;
-    });
+      });
   }
 
   show(): NgbModalRef {
-    return this.modalService.open(this.modalData, {backdrop: "static", size: "xl"});
+    return this.modalService.open(this.modalData, { backdrop: "static", size: "xl" });
   }
 
-  create_pkg_build(modal: any, template: string, name: string, version: string, desc: string, rver: string, source: string){
+  create_pkg_build(modal: any, template: string, name: string, version: string, desc: string, rver: string, source: string) {
     const template_id: number = +template;
 
-    if (this.templates === undefined){
+    if (this.templates === undefined) {
       modal.close(false);
       return;
     }
@@ -46,7 +46,7 @@ export class PkgBuildModalComponent {
       pkgbuild = pkgbuild.replaceAll("TEMPLATE_SOURCE", source);
 
       this.branch.submit(pkgbuild).subscribe(ok => {
-        if (ok){
+        if (ok) {
           this.router.navigate(["/editor/", name]);
           modal.close(true);
         }

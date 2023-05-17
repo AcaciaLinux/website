@@ -6,17 +6,22 @@
 		<div class="modal-body">
 			<form>
 				<p style="margin-left: 1px;">Username</p>
-				<input #username class="form-control" style="margin-left: 1px;" type="email" id="username" title="Username">
+				<input #username class="form-control" style="margin-left: 1px;" type="email" id="username"
+					title="Username">
 				<p style="margin-left: 1px; margin-top: 10px;">Password</p>
-				<input #password class="form-control" style="margin-left: 1px;" type="password" id="password" title="Password">
+				<input #password class="form-control" style="margin-left: 1px;" type="password" id="password"
+					title="Password">
 				<br>
 			</form>
 		</div>
 		<div class="modal-footer">
 			<button type="button" class="btn btn-secondary" (click)="modal.close('dismiss')">Dismiss</button>
-			<button type="button" class="btn btn-primary" (click)="this.authenticate(username.value, password.value)">Submit</button>
+			<button type="button" class="btn btn-primary"
+				(click)="this.authenticate(username.value, password.value)">Submit</button>
 		</div>
 	</ng-template>
 </div>
-<button class="btn btn-light" (click)="this.show(modalData)" [hidden]="this.branchService.config.authKey != ''"><ng-icon name="bootstrapPerson"></ng-icon></button>
-<button class="btn btn-light" (click)="this.logoff()" [hidden]="this.branchService.config.authKey == ''"><ng-icon name="bootstrapBoxArrowRight"></ng-icon></button>
+<button class="btn btn-light" (click)="this.show(modalData)" [hidden]="this.branchService.config.authKey != ''"><ng-icon
+		name="bootstrapPerson"></ng-icon></button>
+<button class="btn btn-light" (click)="this.logoff()" [hidden]="this.branchService.config.authKey == ''"><ng-icon
+		name="bootstrapBoxArrowRight"></ng-icon></button>

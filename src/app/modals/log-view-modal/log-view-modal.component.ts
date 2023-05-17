@@ -18,13 +18,13 @@ export class LogViewModalComponent {
 
   }
 
-  show(jobID: string){
+  show(jobID: string) {
     this.branch.getlog(jobID).subscribe(ok => {
-      if (ok !== undefined){
+      if (ok !== undefined) {
         this.jobID = jobID;
         this.log = "";
         ok.forEach(v => this.log += v + "<br>");
-        this.modalService.open(this.modalData, {fullscreen: true, scrollable: true});
+        this.modalService.open(this.modalData, { fullscreen: true, scrollable: true });
       } else {
         this.toasts.s_err("Log is not (yet) available!");
       }

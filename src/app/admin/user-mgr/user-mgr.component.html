@@ -9,9 +9,11 @@
     <!-- If he is logged in, ensure only root can create users -->
     <ng-template #loggedIn>
 
-        <p *ngIf="this.branch.config.username != 'root'">Currently logged in as <b>{{this.branch.config.username}}</b>, only root can create users!</p>
+        <p *ngIf="this.branch.config.username != 'root'">Currently logged in as <b>{{this.branch.config.username}}</b>,
+            only root can create users!</p>
 
-        <p *ngIf="this.branch.config.username == 'root'">Currently logged in as <b>{{this.branch.config.username}}</b></p>
+        <p *ngIf="this.branch.config.username == 'root'">Currently logged in as <b>{{this.branch.config.username}}</b>
+        </p>
 
     </ng-template>
 

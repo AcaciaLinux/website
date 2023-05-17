@@ -20,9 +20,9 @@ export class PackagesComponent {
   private cur_filter: string = "";
   private search_sub: Subscription;
 
-  constructor(public branch: BranchService, private events: EventService, private search: SearchService){
+  constructor(public branch: BranchService, private events: EventService, private search: SearchService) {
     this.subscription = this.events.emitter.subscribe(event => {
-      if (event == EventType.DATA_REFRESH){
+      if (event == EventType.DATA_REFRESH) {
         this.updateData();
       }
     });
@@ -40,19 +40,19 @@ export class PackagesComponent {
     this.search_sub.unsubscribe();
   }
 
-  getPkgDepsString(pkg: Package): string{
+  getPkgDepsString(pkg: Package): string {
     let res = "";
     if (pkg.dependencies === undefined)
       return res;
 
-    for (let dep of pkg.dependencies){
+    for (let dep of pkg.dependencies) {
       res += dep + " ";
     }
 
     return res;
   }
 
-  updateData(){
+  updateData() {
     console.debug("[PACKAGES] Refreshing data...");
 
     this.branch.request("packagelist")
@@ -62,7 +62,7 @@ export class PackagesComponent {
       });
   }
 
-  filter(list: Package[]){
+  filter(list: Package[]) {
     //Filter and sort by name
     return list.filter((v) => v.name.toLowerCase().indexOf(this.cur_filter.toLowerCase()) > -1).sort((a, b) => a.name.localeCompare(b.name));
   }

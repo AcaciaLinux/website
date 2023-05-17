@@ -21,9 +21,9 @@ export class PackagebuildsComponent {
   private cur_filter: string = "";
   private search_sub: Subscription;
 
-  constructor(public branch: BranchService, private router: Router, private events: EventService, private searchService: SearchService){
+  constructor(public branch: BranchService, private router: Router, private events: EventService, private searchService: SearchService) {
     this.subscription = this.events.emitter.subscribe(event => {
-      if (event == EventType.DATA_REFRESH){
+      if (event == EventType.DATA_REFRESH) {
         this.updateData();
       }
     });
@@ -42,30 +42,30 @@ export class PackagebuildsComponent {
     this.search_sub.unsubscribe();
   }
 
-  pkgIsBuilt(name: string): boolean{
+  pkgIsBuilt(name: string): boolean {
     let pkg = this.packages?.find(p => p.name == name);
     return pkg !== undefined;
   }
 
-  getVersionByPkgName(name: string): string{
+  getVersionByPkgName(name: string): string {
     let pkg = this.packages?.find(p => p.name == name);
-    if (pkg === undefined){
+    if (pkg === undefined) {
       return "NOT BUILT";
     }
-  
+
     return pkg.version;
   }
 
-  getRelVersionByPkgName(name: string): string{
+  getRelVersionByPkgName(name: string): string {
     let pkg = this.packages?.find(p => p.name == name);
-    if (pkg === undefined){
+    if (pkg === undefined) {
       return "NOT BUILT";
     }
-  
+
     return pkg.real_version.toString();
   }
 
-  updateData(){
+  updateData() {
     console.debug("[PACKAGEBUILDS] Refreshing data...");
 
     this.branch.request("packagebuildlist")
@@ -79,12 +79,12 @@ export class PackagebuildsComponent {
       })
   }
 
-  filter(list: string[]){
+  filter(list: string[]) {
     //Filter and sort by name
     return list.filter((v) => v.toLowerCase().indexOf(this.cur_filter.toLowerCase()) > -1).sort((a, b) => a?.localeCompare(b));
   }
 
-  openPkgBuild(name: string){
+  openPkgBuild(name: string) {
     console.log("Switching to editor to edit packagebuild " + name)
     this.router.navigate(["editor", name])
   }
