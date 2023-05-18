@@ -13,6 +13,6 @@ export class HomeComponent {
   }
 
   getStarted() {
-    this.router.navigate(["wiki", "getting_started"]);
+    document.location = "https://wiki.acacialinux.org/getting_started";
   }
 }

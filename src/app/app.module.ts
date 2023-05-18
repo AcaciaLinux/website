@@ -21,7 +21,6 @@ import { ToastsContainer } from './toasts-container/toasts-container.component';
 import { CreateuserModalComponent } from './modals/createuser-modal/createuser-modal.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { MarkdownModule } from 'ngx-markdown';
-import { WikiComponent } from './wiki/wiki.component';
 import { ConfirmModalComponent } from './modals/confirm-modal/confirm-modal.component';
 import { PkgBuildModalComponent } from './modals/pkg-build-modal/pkg-build-modal.component';
 import { SearchControlsComponent } from './controls/search-controls/search-controls.component';
@@ -46,7 +45,6 @@ import { ConfigService, PAGE_TITLE } from './shared/config/config.service';
     JobsControlsComponent,
     LogViewModalComponent,
     NotFoundComponent,
-    WikiComponent,
     ConfirmModalComponent,
     PkgBuildModalComponent,
     SearchControlsComponent,
@@ -61,11 +59,6 @@ import { ConfigService, PAGE_TITLE } from './shared/config/config.service';
     RouterModule.forRoot([
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent, title: PAGE_TITLE },
-      {
-        path: 'wiki', children: [
-          { path: '**', component: WikiComponent }
-        ]
-      },
       { path: 'packages', component: PackagesComponent, title: "Packages - " + PAGE_TITLE },
       { path: 'packagebuilds', component: PackagebuildsComponent, title: "Packagebuilds - " + PAGE_TITLE },
       { path: 'downloads', component: DownloadsComponent, title: "Downloads - " + PAGE_TITLE },
