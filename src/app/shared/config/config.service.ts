@@ -54,6 +54,10 @@ export class ConfigService {
       return this.config.wikiURL + "/";
   }
 
+  get_page_title() {
+    return PAGE_TITLE;
+  }
+
   isDarkMode(): boolean {
     return this.config.isDarkMode;
   }
