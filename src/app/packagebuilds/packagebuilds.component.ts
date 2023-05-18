@@ -23,8 +23,8 @@ export class PackagebuildsComponent {
 
   constructor(public branch: BranchService, private router: Router, private events: EventService, private searchService: SearchService) {
     this.subscription = this.events.emitter.subscribe(event => {
-      if (event == EventType.DATA_REFRESH) {
-        this.updateData();
+      if (event == EventType.DATA_CHANGED) {
+        this.update_data();
       }
     });
     this.search_sub = this.searchService.emitter.subscribe(term => {
@@ -34,7 +34,7 @@ export class PackagebuildsComponent {
         this.pkgbuilds = this.filter(this.raw_pkgbuilds);
     });
 
-    this.updateData();
+    this.update_data();
   }
 
   ngOnDestroy() {
@@ -65,18 +65,13 @@ export class PackagebuildsComponent {
     return pkg.real_version.toString();
   }
 
-  updateData() {
+  update_data() {
     console.debug("[PACKAGEBUILDS] Refreshing data...");
 
-    this.branch.request("packagebuildlist")
-      .subscribe(data => {
-        this.raw_pkgbuilds = data.payload;
-        this.pkgbuilds = this.filter(data.payload);
-      })
-    this.branch.request("packagelist")
-      .subscribe(data => {
-        this.packages = data.payload;
-      })
+    this.packages = this.branch.pkg_list;
+
+    this.raw_pkgbuilds = this.branch.pkgbuild_list;
+    this.pkgbuilds = this.filter(this.raw_pkgbuilds);
   }
 
   filter(list: string[]) {

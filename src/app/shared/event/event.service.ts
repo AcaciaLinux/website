@@ -7,6 +7,7 @@ export enum EventType {
   EDITOR_CROSSBUILD,
   EDITOR_DELETE,
   DATA_REFRESH,
+  DATA_CHANGED,
   NONE
 }
 

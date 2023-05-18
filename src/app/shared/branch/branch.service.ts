@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ConfigService } from '../config/config.service';
-import { interval, map, Observable, Subscription } from 'rxjs';
+import { interval, map, Observable, Subscription, firstValueFrom } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastService } from 'src/app/toasts-container/toast-service';
+import { Package } from '../classes/package';
+import { EventService, EventType } from '../event/event.service';
 
 export class BranchResponse {
   status: string = ""
@@ -16,10 +18,19 @@ export class BranchResponse {
 })
 export class BranchService {
 
-  constructor(public config: ConfigService, private http: HttpClient, private cookies: CookieService, private toasts: ToastService) {
+  public pkg_list: Package[] = [];
+  public pkgbuild_list: string[] = [];
+
+  private sub_checkauth: Subscription;
+  private sub_update_data: Subscription;
+
+  constructor(public config: ConfigService, private http: HttpClient, private cookies: CookieService, private toasts: ToastService, private events: EventService) {
     //Check authkey every 60 sec
     const checkauth_timer = interval(60000);
-    checkauth_timer.subscribe(_ => this.auto_checkauth());
+    this.sub_checkauth = checkauth_timer.subscribe(_ => this.auto_checkauth());
+
+    const update_data_timer = interval(5000);
+    this.sub_update_data = update_data_timer.subscribe(_ => this.update_data());
 
     if (this.cookies.check("username")) {
       this.config.username = this.cookies.get("username");
@@ -28,6 +39,47 @@ export class BranchService {
     if (this.cookies.check("authkey")) {
       this.checkauth(this.cookies.get("authkey")).subscribe();
     }
+    this.update_data();
+  }
+
+  ngOnDestroy() {
+    this.sub_checkauth.unsubscribe();
+    this.sub_update_data.unsubscribe();
+  }
+
+  async update_data() {
+    console.log("[BRANCH] Updating data");
+
+    let res_pkgs: BranchResponse;
+    let res_pkgbuilds: BranchResponse;
+
+    try {
+      res_pkgs = await firstValueFrom(this.request("packagelist"));
+      res_pkgbuilds = await firstValueFrom(this.request("packagebuildlist"));
+    } catch (e) {
+      console.error("[BRANCH] Failed to retrieve data (HTTP error)");
+      console.error(e);
+      return;
+    }
+
+    { // Check for errors
+      if (res_pkgs.response_code != 200) {
+        console.error("[BRANCH] Failed to retrieve package list: " + res_pkgs.payload);
+      }
+
+      if (res_pkgbuilds.response_code != 200) {
+        console.error("[BRANCH] Failed to retrieve package build list: " + res_pkgbuilds.payload);
+      }
+
+      if (res_pkgs.response_code != 200 || res_pkgbuilds.response_code != 200) {
+        return;
+      }
+    }
+
+    this.pkg_list = res_pkgs.payload;
+    this.pkgbuild_list = res_pkgbuilds.payload;
+
+    this.events.push(EventType.DATA_CHANGED);
   }
 
   request(get: string): Observable<any> {
